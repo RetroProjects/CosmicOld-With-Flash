@@ -1,0 +1,207 @@
+<div class="kt-portlet" id="tools">
+<div class="kt-portlet__body kt-portlet__body--fit">
+   <div class="kt-grid  kt-wizard-v2 kt-wizard-v2--white" id="kt_wizard_v2" data-ktwizard-state="first">
+      <div class="kt-grid__item kt-wizard-v2__aside">
+         <div class="kt-wizard-v2__nav">
+            <div class="kt-wizard-v2__nav-items">
+               <a class="kt-wizard-v2__nav-item" href="#tools" data-ktwizard-type="step" data-ktwizard-state="current">
+                  <div class="kt-wizard-v2__nav-body">
+                     <div class="kt-wizard-v2__nav-icon">
+                        <i class="flaticon-globe"></i>
+                     </div>
+                     <div class="kt-wizard-v2__nav-label">
+                        <div class="kt-wizard-v2__nav-label-title">
+                           Manage user
+                        </div>
+                        <div class="kt-wizard-v2__nav-label-desc">
+                           Search information from a user
+                        </div>
+                     </div>
+                  </div>
+               </a>
+               <a class="kt-wizard-v2__nav-item" href="#tools" data-ktwizard-type="step" data-ktwizard-state="pending">
+                  <div class="kt-wizard-v2__nav-body">
+                     <div class="kt-wizard-v2__nav-icon">
+                        <i class="flaticon-bus-stop"></i>
+                     </div>
+                     <div class="kt-wizard-v2__nav-label">
+                        <div class="kt-wizard-v2__nav-label-title">
+                           Reset user
+                        </div>
+                        <div class="kt-wizard-v2__nav-label-desc">
+                           Reset motto/relationships
+                        </div>
+                     </div>
+                  </div>
+               </a>
+               <a class="kt-wizard-v2__nav-item" href="#tools" data-ktwizard-type="step" data-ktwizard-state="pending">
+                  <div class="kt-wizard-v2__nav-body">
+                     <div class="kt-wizard-v2__nav-icon">
+                        <i class="flaticon-responsive"></i>
+                     </div>
+                     <div class="kt-wizard-v2__nav-label">
+                        <div class="kt-wizard-v2__nav-label-title">
+                           Ban user
+                        </div>
+                        <div class="kt-wizard-v2__nav-label-desc">
+                           Ban someone for misconduct
+                        </div>
+                     </div>
+                  </div>
+               </a>
+               <a class="kt-wizard-v2__nav-item" href="#tools" data-ktwizard-type="step" data-ktwizard-state="pending">
+                  <div class="kt-wizard-v2__nav-body">
+                     <div class="kt-wizard-v2__nav-icon">
+                        <i class="flaticon-trophy"></i>
+                     </div>
+                     <div class="kt-wizard-v2__nav-label">
+                        <div class="kt-wizard-v2__nav-label-title">
+                           Alert user
+                        </div>
+                        <div class="kt-wizard-v2__nav-label-desc">
+                           Give user an alert in hotel
+                        </div>
+                     </div>
+                  </div>
+               </a>
+            </div>
+         </div>
+      </div>
+     
+      <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v2__wrapper">
+         <div class="kt-form" id="kt_form">
+           
+            <div class="kt-wizard-v2__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+               <div class="kt-heading kt-heading--md">See users information</div>
+               <div class="kt-form__section kt-form__section--first">
+                  <form action="remote/manage">
+                     <div class="kt-wizard-v2__form">
+                        <div class="form-group ">
+                           <div class="kt-input-icon kt-input-icon--right">
+                              <select name="element" class="form-control remoteControl"></select>
+                              <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <select name="type" class="form-control">
+                              <option value="" selected>All info</option>
+                              <option value="userinfo">User Info</option>
+                              <option value="chatlogs">Chat Logs</option>
+                              <option value="namelogs">Name Logs</option>
+                              <option value="tradelogs">Trade Logs</option>
+                              <option value="maillogs">Mail Logs</option>
+                              <option value="roomlogs">Rooms</option>
+                           </select>
+                        </div>
+                        <div class="kt-form__actions">
+                            <button type="submit" class="btn btn-primary ajaxLoad">Submit</button>
+                        </div>
+                  </form>
+                  </div>
+               </div>
+            </div>
+    
+            <div class="kt-wizard-v2__content" data-ktwizard-type="step-content">
+               <div class="kt-heading kt-heading--md">Reset user</div>
+               <div class="kt-form__section kt-form__section--first">
+                  <form action="remote/reset">
+                     <div class="kt-wizard-v2__form">
+                        <div class="form-group ">
+                           <div class="kt-input-icon kt-input-icon--right">
+                              <select name="element" class="form-control remoteControl"></select>
+                              <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <select name="type" class="form-control">
+                              <option value="1">Motto</option>
+                              <option value="2">Look</option>
+                           </select>
+                        </div>
+                       <div class="kt-form__actions">
+                          <button type="submit" class="btn btn-primary ajaxLoad">Submit</button>
+                       </div>
+                    </form>
+                  </div>
+               </div>
+            </div>
+
+            <div class="kt-wizard-v2__content" data-ktwizard-type="step-content">
+               <div class="kt-heading kt-heading--md">Ban User</div>
+               <div class="kt-form__section kt-form__section--first">
+                  <form action="remote/ban">
+                     <div class="kt-wizard-v2__form">
+                        <div class="form-group ">
+                           <div class="kt-input-icon kt-input-icon--right">
+                              <select name="element" class="form-control remoteControl"></select>
+                              <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                            <select name="reason" class="form-control" required>
+                            {% for ban in ban_messages %}
+                                <option value="{{ban.id}}">{{ban.message}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="expire" class="form-control" id="inputTime" required>
+                                {% for ban in ban_times %}
+                                    <option value="{{ban.id}}">{{ban.message}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                           <select name="type" class="form-control" required>
+                              <option value="user">User</option>
+                              <option value="ip">IP</option>
+                          </select>
+                        </div>
+                        <div class="kt-form__actions">
+						  <button type="submit" class="btn btn-primary ajaxLoad">Submit</button>
+					   </div>
+					</form>
+                  </div>
+               </div>
+            </div>
+           
+            <div class="kt-wizard-v2__content" data-ktwizard-type="step-content">
+               <div class="kt-heading kt-heading--md">Alert User</div>
+               <div class="kt-form__section kt-form__section--first">
+                  <form action="remote/alert">
+                     <div class="kt-wizard-v2__form">
+                        <div class="form-group ">
+                           <div class="kt-input-icon kt-input-icon--right">
+                              <select name="element" class="form-control remoteControl"></select>
+                              <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                            <select name="reason" class="form-control" required>
+                                {% for alert in alert_messages %}
+                                <option value="{{alert.id}}">{{alert.title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="action" class="form-control" required>
+                                <option value="0">None</option>
+                                <option value="1">Disconnect</option>
+                                <option value="2">Mute</option>
+                            </select>
+                        </div>
+                        <div class="kt-form__actions">
+                           <button type="submit" class="btn btn-primary ajaxLoad">Submit</button>
+                        </div>
+                    </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

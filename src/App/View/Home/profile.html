@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+   <div class="page-header-content">
+      <h1>{{locale.title}} {{data.player.username}} <a onclick="openSearch()" style="border: none;color:#000; cursor: pointer"><i class="fa fa-search"></i></a></h1>
+      {% if player.username == data.player.username %}
+      {% if data.type != "edit" %}<a href="#" class="editProfile button">Edit profile</a>{% endif %}
+      <div class="editActive" {% if data.type != "edit" %}style="display: none" {% endif %}>
+         <a href="#" class="saveProfile button">Save profile</a>
+         <a href="#" class="changeBg button">Change background</a>
+         <a href="#" class="addSticker button">Add sticker</a>
+         <a href="#" class="addWidget button">Add widgets</a>
+         <input type="hidden" name="csrftoken" value="{{csrf_token}}" />
+      </div>
+      {% endif %}
+      
+   </div>
+</header>
+<div id="searchOverlay" class="overlay">
+   <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+   <div class="overlay-content">
+      <form action="profile/search">
+         <input type="text" placeholder="Wie zoek je?" name="search">
+         <button type="submit" onclick="closeSearch()"><i class="fa fa-search"></i></button>
+      </form>
+   </div>
+</div>
+{% if data.player.widgets %}
+<div class="page-content" {% if data.player.background.name is not empty%} data-background="{{data.player.background.name}}" {% endif %}>
+{% for widget in data.player.widgets %} 
+{% include "Home/Profile/widgets.html" %}
+{% endfor %}
+{% for widget in data.player.notes %} 
+{% include "Home/Profile/notes.html" %}
+{% endfor %}
+{% for sticker in data.player.widgets %}
+{% if sticker.type == "s" %}
+{% include "Home/Profile/stickers.html" %}
+{% endif %}
+{% endfor %}
+{% else %}
+{% include "Home/Profile/home.html" %}
+{% endif %}
+</div>
+{% endblock %}

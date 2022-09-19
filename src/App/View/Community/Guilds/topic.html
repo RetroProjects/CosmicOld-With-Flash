@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+<div class="page-content">
+  
+    <!-- jquery data -->
+    <input type="hidden" name="totalpages" value="{{topic.total}}">
+    <input type="hidden" name="currentpage" value="{{currentpage}}">
+    <input type="hidden" name="page_url" value="/guilds/{{topic.guild_id}}/thread/{{topic.id}}-{{topic.slug}}">
+    <!-- end jquery data -->
+  
+    <div class="aside-toolbar-content">
+        <a href="/guilds">Home</a> - <a href="/guilds/{{topic.guild_id}}-{{topic.slug}}">{{topic.forum.name}}</a> - {{topic.subject}}
+    </div>
+  
+    <div class="aside-toolbar-content">
+        <div style="float: left; margin-top: 8px">
+              {% if topic.forum.post_messages != false and topic.locked == 0 %}
+              <button class="btn btn-success replybtn" data-status="{% if topic.locked %}closed{% elseif topic.forum.post_messages == false %}closed{% endif %}">{{locale.topic_react}}</button>
+              {% endif %}
+              {% if topic.forum.mod_forum != false %}
+              <button class="btn btn-primary btn-func" data-id="{{topic.id}}" data-status="sticky" data-guild="{{topic.guild_id}}">{% if topic.pinned == 0 %}Sticky{% else %}Unsticky{% endif %}</button>
+              <button class="btn btn-error btn-func" data-id="{{topic.id}}" data-staus="close" data-guild="{{topic.guild_id}}">{% if topic.locked == 0 %}{{locale.topic_close}}{% else %}{{locale.topic_reopen}}{% endif %}</button>
+              {% endif %}
+        </div>
+        <ul id="pagination" class="pagination"></ul>
+    </div>
+  
+   {% for post in topic.posts %}
+   <article class="default-section">
+      <div class="aside-title-content"></div>
+          <div id="{{post.id}}" class="forum-post">
+             <div class="forum-author">
+                <div class="fpost-user">
+                   <strong>
+                      <div class="user-style"><a href="/profile/{{post.author.username}}">{{post.author.username}}</a></div>
+                   </strong>
+                </div>
+                {% if topic.forum.user_id == post.user_id %}
+                    <div class="forum-user-icon" style="background: url(/assets/images/web/pages/forum/moderator.png) center no-repeat;"></div>
+                {% endif %}
+                <div class="hidden-sm hidden-xs">
+                   <div class="forum-post-avatar">
+                      <div style="background: url({{site.fpath}}?figure={{post.author.look}}&amp;head_direction=3&amp;headonly=1) no-repeat center; width: 48px; height: 62px;"></div>
+                   </div>
+                </div>
+                <div class="hidden-sm hidden-xs" style="text-align: left;"><strong>{{locale.topic_since}}</strong> {{post.author.account_created}}</div>
+                <div class="hidden-sm hidden-xs" style="text-align: left;"><strong>{{locale.topic_posts}}</strong> {{data.requests.ctickets}}</div>
+                <div style="text-align: right;"><img src="/assets/images/web/pages/forum/{% if player.online %}online.gif{% else %}offline.gif{% endif %}"></div>
+             </div>
+             <div class="forum-content">
+                <div class="forum-title">
+                    {% if topic.pinned == 1 %}<img src="/assets/images/web/pages/forum/sticky_icon.gif">{% endif %}
+                    {% if topic.locked == 1 %}<img src="/assets/images/web/pages/forum/locked_icon.gif">{% endif %}
+                <strong>
+                     {% if loop.first %}{{locale.topic_topic}}{% else %}{{locale.topic_reaction}}{% endif %} {{topic.subject}}
+                </strong>
+                <span class="forum-timestamp"> - {{post.created_at}}</span>
+                </div>
+                <div class="forum-body">
+                    <div class="content-body">
+                        {{post.content|raw}}
+                    </div>
+                    <div class="forum-likes-container" data-id="{{post.id}}">
+                        
+                        {% if loop.first %}
+                            {% if topic.locked == 1 and currentpage < 2 %}
+                            <div class="forum-closed">
+                                <span class="fas fa-times-circle"></span>
+                                {{locale.topic_closed}} <a href="/help">{{locale.topic_helptool}}</a>!
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                      
+                        <div class="forum-likes" {% if post.likes == false %}style="display:none"{% endif %} data-id="{{post.id}}">
+                        <div class="forum-likes-icon" style="float:left;"></div>
+
+                        {% set count = post.likes|length - 3 %}
+                            <span class="fas fa-thumbs-up"></span>
+                        {% for likes in post.likes|slice(0, 3) %}
+                           <strong><a href="/profile/{{likes.user.username}}" id="{{post.id}}" class="like">{{likes.user.username}}</a></strong>,
+                        {% endfor %}
+                            {% if post.likes|length > 3 %}
+                                {{locale.topic_and}} {{count}} {{locale.topic_likes_1}}
+                            {% elseif post.likes|length == 1 %}
+                                {{locale.topic_likes_2}}
+                            {% else %}
+                                {{locale.topic_likes_3}}
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+             </div>
+             <div class="forum-tools" style="text-align: right;">
+                {% set liked = 0 %}
+                {% for likes in post.likes %}
+                    {% if likes.user_id == player.id %}
+                        {% set liked = 1 %}
+                    {% endif %}
+                {% endfor %}
+                <i class="fa fa-heart {% if liked == 0 %}tools-active{% endif %}" data-id="{{post.id}}" data-guild="{{topic.guild_id}}" style="margin-right: 10px"></i>
+                <i class="fa fa-quote-right tools-active replybtn" data-id="{{post.id}}" style="margin-right: 10px;"></i>
+                <i class="fa fa-flag tools-active" data-report="post" data-id="{{post.id}}" style="margin-right: 10px;"></i>
+                {% if post.user_id == player.id %}
+                <i class="fa fa-edit tools-active topicreply" data-id="{{post.id}}"></i>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+
+    {% if topic.forum.post_messages != false %}
+    <article class="default-section">
+        <div class="aside-toolbar-content replybox" style="display: none">
+            <form action="guilds/post/topic/reply" method="post">
+                <div class="form-group">
+                    <textarea name="message" id="editor" class="rounded-textarea blue-active"></textarea>
+                </div>
+                <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                <input type="hidden" name="topic_id" value="{{topic.id}}" />
+                <input type="hidden" name="guild_id" value="{{topic.guild_id}}" />
+                <p style="text-align: center; margin-top: 30px;"><button type="submit" class="rounded-button blue">{{locale.topic_react}}</button></p>
+            </form>
+        </div>
+      </article>
+      {% endif %}
+</div>
+{% endblock %}

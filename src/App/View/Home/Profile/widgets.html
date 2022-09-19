@@ -1,0 +1,138 @@
+{% if widget.name == 'photos' %}
+{% set title = "Highlight" %}
+{% set body %}
+ {% if data.player.photos %}
+    {% for row in data.player.photos %}
+    <img src="{{row.url}}" class="item-container photos" target="_blank" data-title="{{row.timestamp|date("d-M H:i")}}" data-player="{{row.user_id}}" data-id="{{row.id}}" style="width: 100%;">
+    {% endfor %}
+{% else %}
+    <p>{{locale.photos_empty}}</p>
+{% endif %}
+{% endset %}
+{% endif %}
+{% if widget.name == 'rooms' %}
+{% set title = "My Rooms" %}
+{% set body %}
+<div class="rooms_b">
+<div class="room_content">
+    {% if data.player.rooms %}
+        {% for row in data.player.rooms %}
+            {% if row.users >= 25 %}
+                {% set number = 5 %}
+            {% elseif row.users >= 15 %}
+                {% set number = 4 %}
+            {% elseif row.users >= 10 %}
+                {% set number = 3 %}
+            {% elseif row.users >= 1 %}
+                {% set number = 2 %}
+            {% else %}
+                {% set number = 1 %}
+            {% endif %}
+          <div class="room" style="background: url(/assets/images/web/pages/community/rooms/room_icon_1.gif) no-repeat center left;">
+              <p class="room_title">{{row.name}}</p>
+              <p class="room_description">{{row.description}}</p>
+              <a target="_blank" href="/client?room=test">Enter Room</a>
+          </div>
+        {% endfor %}
+     {% else %}
+          {{locale.rooms_empty}}
+     {% endif %}
+</div>
+</div>
+{% endset %}
+{% elseif widget.name == 'friends' %}
+{% set title = "My Friends" %}
+{% set body %}                   
+{% if data.player.friends %}
+<div class="friend-grid">
+       {% for row in data.player.friends %}
+      <a href="/profile/{{row.username}}" alt="{{row.username}}">
+      <span class="friend">
+        <figure style="background-image:url({{site.fpath}}?figure={{row.look}}&direction=4&headonly=1);"></figure>
+      </span></a>
+      {% endfor %}
+</div>
+{% else %}
+   {{locale.friends_empty}}
+{% endif %}
+{% endset %}
+{% elseif widget.name == 'groups' %}
+{% set title = "My Groups" %}
+{% set body %}
+{% if data.player.groups %}
+    {% for row in data.player.groups %}
+        <div class="userfirst">
+           <div class="usernamebox">
+              <div class="username">
+                  {{row.name}}
+              </div>
+           </div>
+           <div class="usermottobox">
+              {{row.description}}
+            </div>
+           </div>
+        <div class="userplate">
+           <div class="useravatar"><img src="{{site.cpath}}/c_images/album1584/{{row.badge_code}}.gif"></div>
+        </div>
+        <div class="usermotto"></div>
+    {% endfor %}
+{% else %}
+    {{locale.groups_empty}}
+{% endif %}
+{% endset %}
+{% endif %}
+{% if widget.name == 'myhabbo' %}
+{% set title = "My Profile" %}
+{% set body %}
+<div class="userfirst">
+   <div class="usernamebox">
+      <div class="username">
+         {{data.player.username}}
+      </div>
+   </div>
+   <div class="usermottobox">
+      <span>{{locale.since}} <b>{{data.player.account_created|date("d-m-Y")}}</b></span>
+      {% if data.player.settings.hide_online == 0 or 'housekeeping' in permissions %}
+      {{locale.currently}} <strong class="{% if data.player.online == 0 %}offline{% set status = 'offline' %}{% else %}online{% set status = 'online' %}{% endif %}">{{status}}</strong>
+      {% else %}
+      {{locale.currently}} <strong class="offline">offline</strong>
+      {% endif %}
+      {% if data.player.settings.hide_last_online == 0 or 'housekeeping' in permissions %}
+      <div class="details-container last_login">{% if data.player.last_online == 0 %}{{locale.never_online}}{% else %}{{locale.last_visit}} <strong>{{data.player.last_online|date("d-m-Y H:i:s")}}</strong>{% endif %}</div>
+      {% endif %}
+   </div>
+</div>
+<div class="userplate">
+   <div class="useravatar"><img src="{{site.fpath}}?figure={{data.player.look}}&gesture=sml&headonly=1"></div>
+</div>
+<div class="usermotto">
+   {{data.player.motto}}
+</div>
+{% endset %}
+{% elseif widget.name == 'mybadges' %}
+{% set title = "My Badges" %}
+{% set body %}
+{% if data.player.badges %}
+<div class="badge-grid">
+   {% for badge in data.player.badges %}
+   <span class="widget_badge" style="background-image:url({{site.cpath}}/c_images/album1584/{{badge.badge_code}}.gif); height: 34px; width:40px; background-repeat: no-repeat;"></span>
+   {% endfor %}
+</div>
+{% else %}
+{{data.player.username}} has no badges yet.
+{% endif %}
+{% endset %}
+{% endif %}
+{% if widget.type != "s" %}
+<div class="right-side">
+   <div class="widget_{{widget.skin}} widget" data-id="{{widget.name}}" data-ids="{{widget.id}}" data-type="{{widget.type}}" data-skin="{{widget.skin}}" data-top="{{widget.y}}" data-left="{{widget.x}}" style="position: relative; left: {{widget.x}}px; top: {{widget.y}}px;">
+      <div class="heading">
+         <span>{{title}}</span>
+      </div>
+      {% include "Home/Profile/edit.html" %}
+      <div class="body">
+         {{body}}
+      </div>
+   </div>
+</div>
+{% endif %}

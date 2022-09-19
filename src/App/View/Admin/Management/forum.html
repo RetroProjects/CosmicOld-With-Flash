@@ -1,0 +1,260 @@
+{% extends "Admin/base.html" %}
+
+{% block page %}Forums{% endblock %}
+{% block jsfile %}forum{% endblock %}
+
+{% block body %}
+<div class="row">
+      <div class="col-xl-12" id="editCategory" style="display: none">
+        <div class="kt-portlet">
+            <form method="post" action="forum/editaddcat">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <span class="kt-portlet__head-icon">
+                            <i class="flaticon2-graph"></i>
+                        </span>
+
+                        <h3 class="kt-portlet__head-title titleEdit">
+                            Edit Category
+                        </h3>
+                    </div>
+                    <div class="kt-subheader__wrapper kt-margin-t-10">
+                       <a id="goBack" class="btn btn-clean btn-icon-sm" style="">
+                       <i class="la la-long-arrow-left"></i>Back
+                       </a>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" class="form-control" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" name="description">
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-2">
+                            <label>Min rank</label>
+                            <select class="form-control" name="min_rank">
+                              <option value="">Everyone</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Position</label>
+                            <select class="form-control" name="position" id="position">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">9</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 m--valign-middle">
+                            Action:
+                        </div>
+
+                        <div class="col-lg-6 kt-align-right">
+                            <input type="hidden" name="catId">
+                            <button type="submit" class="btn btn-brand addCategory">Edit Forum</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-xl-12" id="editForum" style="display: none">
+        <div class="kt-portlet">
+            <form method="post" action="forum/editadd">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <span class="kt-portlet__head-icon">
+                            <i class="flaticon2-graph"></i>
+                        </span>
+
+                        <h3 class="kt-portlet__head-title titleEdit">
+                            Edit Forum
+                        </h3>
+                    </div>
+                    <div class="kt-subheader__wrapper kt-margin-t-10">
+                       <a id="goBacks" class="btn btn-clean btn-icon-sm" style="">
+                       <i class="la la-long-arrow-left"></i>Back
+                       </a>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body">
+                    <div id="image-preview">
+                        <label for="image-upload" id="image-label">Choose File</label>
+                        <input type="file" name="imagesUpload" id="image-upload" />
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" name="description">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select class="form-control" name="category" id="category"></select>
+                    </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label>Min rank</label>
+                                <select class="form-control" name="min_rank">
+                                    <option value="">Everyone</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Position</label>
+                              <select class="form-control" name="position" id="position">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">9</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                            </div>
+
+                        </div>
+                </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 m--valign-middle">
+                            Action:
+                        </div>
+
+                        <div class="col-lg-6 kt-align-right">
+                            <input type="hidden" name="forumId">
+                            <button type="submit" class="btn btn-brand addForum">Edit Forum</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+  <div class="col-xl-12" id="forumTable">
+     <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+           <div class="kt-portlet__head-label">
+              <span class="kt-portlet__head-icon">
+              <i class="kt-font-brand flaticon2-user"></i>
+              </span>
+              <h3 class="kt-portlet__head-title">
+                 Forum manage
+              </h3>
+           </div>
+          <div class="kt-portlet__head-toolbar">
+              <div class="kt-portlet__head-wrapper">
+                  <div class="kt-input-icon kt-input-icon--left">
+                      <input type="text" class="form-control" style="width: 200px" placeholder="Search..." id="faq_search">
+                      <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                          <span><i class="la la-search"></i></span>
+                      </span>
+                  </div>
+
+                  <div class="dropdown dropdown-inline">
+                      <button type="button" class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="flaticon-more-1"></i>
+                      </button>
+
+                      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(110px, 38px, 0px);">
+                          <ul class="kt-nav">
+                              <li class="kt-nav__section kt-nav__section--first">
+                                  <span class="kt-nav__section-text">Actions</span>
+                              </li>
+
+                              <li class="kt-nav__item">
+                                  <a class="kt-nav__link">
+                                      <i class="kt-nav__link-icon flaticon2-plus"></i>
+                                      <span class="kt-nav__link-text addForum">Add Forum</span>
+                                  </a>
+                              </li>
+                            
+                              <li class="kt-nav__item">
+                                  <a class="kt-nav__link">
+                                      <i class="kt-nav__link-icon flaticon2-plus"></i>
+                                      <span class="kt-nav__link-text addCategory">Add Category</span>
+                                  </a>
+                              </li>
+
+                              <li class="kt-nav__item">
+                                  <a class="kt-nav__link">
+                                      <i class="kt-nav__link-icon flaticon2-open-text-book"></i>
+                                      <span class="kt-nav__link-text getCategory">Categories</span>
+                                  </a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+           <!--begin: Datatable -->
+           <div id="kt_datatable_forum"></div>
+           <!--end: Datatable -->
+        </div>
+     </div>
+  </div>
+</div>
+<style>
+#image-preview {
+    width: 730px;
+    height: 170px;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    color: #ecf0f1;
+    margin: auto;
+    width: 70%;
+    background-position: top center !important;
+    background-repeat: no-repeat;
+    background-size: auto !important;
+}
+#image-preview label {
+    position: absolute;
+    z-index: 5;
+    opacity: .8;
+    cursor: pointer;
+    background-color: #bdc3c7;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  text-align: center;
+}
+#image-preview input {
+    line-height: 200px;
+    font-size: 200px;
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+}
+</style>
+
+{% endblock %}

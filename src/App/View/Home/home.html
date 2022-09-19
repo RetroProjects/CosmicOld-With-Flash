@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% block body %}
+        <div class="page-content">
+            {% if player %}
+            <div class="left-side" style="height: auto !important;">
+                <article class="default-section profile-section" style="margin-bottom: 20px;">
+                    <div class="background-image">
+                        {% if site.buttons.client_flash_button %}
+                        <a href="/hotel" class="rounded-button white plain hotel-button enter-hotel">{{locale.to}} {{site.sitename}}</a>
+                        {% else %}
+                        <a href="/hotel=beta" class="rounded-button white plain hotel-button enter-hotel">{{locale.to}} {{site.sitename}}</a>
+                        {% endif %}
+                    </div>
+                    <div class="profile-content">
+                        <div class="header-image">
+                            <img src="{{site.fpath}}?figure={{player.look}}" width="64" height="110" class="figure">
+                        </div>
+
+                        <div class="stats">
+                            <div class="icons" style="background: url(/assets/images/hotel/purses/credits-icon.png) no-repeat center center;"></div>
+                            <div style="color: #E2AE1D;">
+                                {{player.credits}}
+                            </div>
+                          
+                            {% for value in currencys %}
+                            <div class="icons" style="background: url(/assets/images/hotel/purses/{{value.type}}-icon.png) no-repeat center center;"></div>
+                            <div style="color: #BA7CC2;">
+                               {{value.amount}}
+                            </div>             
+                            {% endfor %}
+                        </div>
+                    </div>
+                </article>
+              
+                <div class="myfriends-online">
+                    <button id="copyReferral" class="form-control" style="width:120px;color: #fff;background-color: #5cb85c;border-color: #4cae4c;margin-right:5px">Referral</button>
+                    <input type="text" value="https://{{site.domain}}/registration/{{player.username}}" id="getReferral" class="form-control" style="width: 450px" autocomplete="off" required>
+                </div>
+              
+                <aside class="default-section">
+                  
+                    <div class="aside-title-content">{{locale.popular_rooms}}</div>
+                    <div class="aside-desc-content">{{locale.popular_rooms_label}}</div>
+                  
+                    {% if rooms is empty %}
+                        <div class="aside-content">
+                            {{locale.popular_no_rooms}}
+                        </div>
+                    {% endif %}
+                  
+                    {% if rooms is not empty %}
+                    <div class="aside-content">
+                        <table class="rooms table table-striped">
+                            <tbody>
+                                {% for row in rooms %}
+                                    {% if row.users >= 25 %}
+                                        {% set number = 5 %}
+                                    {% elseif row.users >= 15 %}
+                                        {% set number = 4 %}
+                                    {% elseif row.users >= 10 %}
+                                        {% set number = 3 %}
+                                    {% elseif row.users >= 1 %}
+                                        {% set number = 2 %}
+                                    {% else %}
+                                        {% set number = 1 %}
+                                    {% endif %}
+                                <tr>
+                                    <td style="text-align: center;"><img src="/assets/images/web/pages/community/rooms/room_icon_{{number}}.gif"></td>
+                                    <td style="text-align: justify;word-break: break-word;">{{row.name}}<br><i style="font-size: 11px;word-break: break-word;"></i></td>
+                                    <td><img src="/assets/images/web/pages/community/rooms/visitors.gif"> <b>{{row.users}}</b></td>
+                                    <td style="width: 150px;padding-left: 20px"><a href="/api/room/{{row.id}}" class="button">{{locale.goto_room}}</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </aside>
+              
+              {% endif %}
+              
+              {% if player %}
+                {% if friends is not empty %}
+                <article class="default-section">
+                    <div class="aside-title-content">{{locale.friends_online}}</div>
+                    <div class="aside-content">
+                        {% for friend in friends %}
+                        <div class="friends-container">
+                            <a href="/profile/{{friend.username}}">
+                                <div class="avatar">
+                                    <img src="{{site.fpath}}?figure={{friend.look}}&head_direction=2&gesture=sml&headonly=true" alt="{{friend.username}}">
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </article>
+                {% endif %}
+              
+            </div>
+          
+            <div class="right-side">
+                <article class="default-section">
+                    <div class="aside-title-content">{{locale.latest_news}}</div>
+                    <div class="aside-desc-content">{{locale.latest_facts}}</div>  
+                    <div class="aside-content">
+                        <div class="related-articles-container">
+                            {% for news in news %}
+                            <a href="/article/{{news.id}}-{{news.slug}}" class="related-article-container">
+                                <div class="related-article-thumbnail" style="background-image: url({{news.header}});"></div>
+                                <div class="related-article-details">
+                                    <div class="related-article-title">{{news.title}}</div>
+                                    <div class="related-article-date">{{news.timestamp|date("d-M H:i")}}</div>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endif %}
+          
+            {% if player %}
+            <div class="right-side" style="margin-bottom: 7px;">
+                <aside class="default-section">
+                    <div class="aside-title-content">{{locale.popular_groups}}</div>
+                    <div class="aside-desc-content">{{locale.popular_groups_label}}</div>
+                    <div class="aside-content">
+                        {% if groups is empty %}
+                            {{locale.popular_no_groups}}
+                        {% endif %}
+                        {% for row in groups %}
+                            <div id="popularGroups" style="background: url('{{site.cpath}}/c_images/Badgeparts/generated/{{row.badge}}.png') 10px 50% no-repeat {% if player.template == "dark"%}#2f2f2f{% endif %}"><div class="countGroupMembers">{{row.Total}}</div><div class="groupName">{{row.name}}</div><div class="groupDesc">{{row.description}}</div></div>
+                        {% endfor %}
+                    </div>
+                </aside>
+              
+                {% if oftw is not empty %}
+                    <aside class="default-section">
+                        <div class="aside-title-content">{{locale.user_of_the_week}}</div>
+                        <div class="aside-desc-content">{{locale.user_of_the_week_label}}</div>
+                        <div class="aside-content">
+                            <div class="flex-container flex-vertical-center">
+                                <div class="user_of_the_week">
+                                <div class="user_of_the_week_img">
+                                    <img src="{{site.fpath}}?figure={{oftw.look}}&amp;action=std&amp;gesture=sml&amp;direction=2&amp;head_direction=2&amp;headonly=0">
+                                </div>
+                                </div>
+                                <div class="user_of_the_week_info">
+                                    <a href="/profile/{{oftw.username}}">{{oftw.username}}</a><br>
+                                    <small>{{oftw.motto}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                {% endif %}
+            <div class="friends-container" style="display: block !important">
+                <div class="list-row">
+                    <ul>
+                        {% for friend in random %}
+                        <li>
+                            <div class="avatar">
+                                <img src="{{site.fpath}}?figure={{player.look}}&gesture=sml&headonly=1" style="margin-top: -15px;margin-left: -10px;">
+                                <div class="status online"></div>
+                            </div>
+                            <div class="content">
+                                <div class="title"><a href="/profile/{{friend.username}}">{{friend.username}}</a></div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                     </ul>
+                </div>
+            </div>
+            </div>
+            {% endif %}
+
+            {% if player is empty %}
+            <div class="articles-container">
+                {% for news in news %}
+                <div class="article-container" data-id="{{news.id}}">
+                    <a href="/article/{{news.id}}-{{news.slug}}" class="article-content pixelated" style="background-image: url({{news.header}});">
+                        <div class="article-header">
+                            <div class="article-category">{{news.category}}</div>
+                            <div class="article-separation" style="background-color: #8f8c8c;"></div>
+                            <div class="article-title title" data-id="{{news.id}}">{{news.title}}</div>
+                            <div class="article-title title-sub" data-id="{{news.id}}" style="display:none">{{news.short_story}}</div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="load-more-button">
+                <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                <button class="rounded-button">{{locale.load_news}}</button>
+            </div>
+            </div>
+            {% endif %}
+{% endblock %}

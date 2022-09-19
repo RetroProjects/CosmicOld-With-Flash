@@ -1,0 +1,156 @@
+{% extends "Admin/base.html" %}
+{% block page %}Vacancies Control{% endblock %}
+{% block jsfile %}vacancies{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+            <div class="kt-portlet__head kt-portlet__head--lg">
+                <div class="kt-portlet__head-label">
+               <span class="kt-portlet__head-icon">
+               <i class="kt-font-brand flaticon2-user"></i>
+               </span>
+                    <h3 class="kt-portlet__head-title">
+                        All Vacancies
+                    </h3>
+                </div>
+              
+            <div class="kt-portlet__head-toolbar">
+               <div class="kt-portlet__head-wrapper">
+                  <div class="col-md-8 kt-margin-b-20-tablet-and-mobile">
+                     <div class="kt-input-icon kt-input-icon--left">
+                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                        <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                        <span><i class="la la-search"></i></span>
+                        </span>
+                     </div>
+                  </div>
+                  &nbsp;
+                  <div class="dropdown dropdown-inline">
+                     <button type="button" class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="flaticon-more-1"></i>
+                     </button>
+                     <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(110px, 38px, 0px);">
+                        <ul class="kt-nav">
+                           <li class="kt-nav__section kt-nav__section--first">
+                              <span class="kt-nav__section-text">Actions</span>
+                           </li>
+                            <li class="kt-nav__item">
+                              <a class="kt-nav__link">
+                              <i class="kt-nav__link-icon flaticon2-plus"></i>
+                              <span class="kt-nav__link-text createVacancie" data-toggle="modal" id="viewvacancies" data-target="#view-vacancies">Create</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                   <div class="kt-subheader__wrapper goback" style="display: none">
+                     <a id="goBack" class="btn btn-clean btn-icon-sm" style="">
+                     <i class="la la-long-arrow-left"></i>Back
+                     </a>
+                  </div>
+               </div>
+              
+            </div>
+              
+            </div>
+            <div class="kt-portlet__body kt-portlet__body--fit">
+                <div id="kt_datatable_vacancies"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="view-application" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+             <div class="modal-body">
+              <div class="job-body"> </div>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Question</th>
+                    <th scope="col">Answer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Available monday</td>
+                        <td class="monday"></td>
+                    </tr> 
+                    <tr>
+                        <td>Available tuesday</td>
+                        <td class="tuesday"></td>
+                    </tr>
+                    <tr>
+                        <td>Available wednesday</td>
+                        <td class="wednesday"></td>
+                    </tr>
+                    <tr>
+                        <td>Available thursday</td>
+                        <td class="thursday"></td>
+                    </tr>
+                    <tr>
+                        <td>Available friday</td>
+                        <td class="friday"></td>
+                    </tr>
+                    <tr>
+                        <td>Available saturday</td>
+                        <td class="saturday"></td>
+                    </tr>
+                    <tr>
+                        <td>Available sunday</td>
+                        <td class="sunday"></td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+          
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger to-accept" data-dismiss="modal">To accepted</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="view-vacancies" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+             <div class="modal-body">
+               <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Job title:</label>
+                  <input type="text" name="job" class="form-control">
+               </div>
+               <div class="form-group">
+                  <label for="message-text" class="col-form-label">Small description:</label>
+                  <input type="text" name="small_description" class="form-control">
+              </div>
+               <div class="form-group">
+                  <label for="message-text" class="col-form-label">Full description:</label>
+                  <textarea name="full_description" id="full_description" style="font-size: 7px;"></textarea>
+              </div>      
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger btn-ok" data-dismiss="modal">Edit</button>
+            </div>
+                 </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.10.3/tinymce.min.js"></script>
+{% endblock %}

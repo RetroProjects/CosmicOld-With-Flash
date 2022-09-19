@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Hotel - {{hotelname}} Hotel</title>
+
+    <link rel="icon" href="{{path}}/assets/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{path}}/assets/css/hotel/hotel.css?v={{revision}}">
+    <link rel="stylesheet" type="text/css" href="{{path}}/assets/css/hotel/hotelview.css?v={{revision}}">
+  
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="{{path}}/assets/js/hotel/swfobject.js?v={{revision}}"></script>
+
+    <script type="text/javascript">
+       var flashvars = {
+          "client.allow.cross.domain": "1",
+          "client.notify.cross.domain": "0",
+          "connection.info.host": "{{client.client_host}}",
+          "connection.info.port": "{{client.client_port}}",
+          "site.url": "{{site.cpath}}",
+          "url.prefix": "{{site.cpath}}",
+          "client.reload.url": "{{site.path}}/home",
+          "client.fatal.error.url": "{{site.path}}/home",
+          "client.connection.failed.url": "{{site.path}}/home",
+          "external.override.texts.txt": "{{site.cpath}}/{{client.external_override_texts}}",
+          "external.override.variables.txt": "{{site.cpath}}/{{client.external_override_variables}}",
+          "external.variables.txt": "{{site.cpath}}/{{client.external_variables}}",
+          "external.texts.txt": "{{site.cpath}}/{{client.external_texts}}",
+          "external.figurepartlist.txt": "{{site.cpath}}/{{client.external_figurepartlist}}",
+          "flash.dynamic.avatar.download.configuration": "{{site.cpath}}/{{client.external_figuremap}}",
+          "productdata.load.url": "{{site.cpath}}/{{client.external_productdata}}",
+          "furnidata.load.url": "{{site.cpath}}/{{client.external_figuredata}}",
+          "sso.ticket": "{{data.auth_ticket}}",
+          "account_id": "{{player.id}}",
+          "client.starting": "Hotel starting..",
+          "ads.domain": "",
+          "processlog.enabled": "0",
+          "flash.client.url": "{{site.cpath}}/{{client.external_base}}/",
+          "flash.client.origin": "popup",
+          {% if room is not null %}
+          "forward.id": "{{room}}",
+          "forward.type": "2"
+          {% endif %}
+        };
+    </script>
+    <script type="text/javascript" src="{{path}}/assets/js/hotel/hotelapi.js?v={{revision}}"></script>
+    <script type="text/javascript">
+        var params = {
+            "base": "{{site.cpath}}/{{client.external_base}}/",
+            "allowScriptAccess": "always",
+            "menu": "false",
+            "wmode": "opaque"
+        };
+
+        window.FlashExternalInterface.logout = function() {
+            var signoutUrl = "{{path}}/logout";
+
+            if (window.opener)
+            {
+                window.opener.location = signoutUrl;
+                window.close();
+            } else
+                window.location = signoutUrl;
+        };
+
+        swfobject.embedSWF('{{site.cpath}}/{{client.external_base}}/{{client.client_swf}}', 'flash-container', '100%', '100%', '11.1.0', '{{path}}/assets/flash/expressInstall.swf', flashvars, params, null, null);
+    </script>
+
+    <style>body{margin:0;background:#000;color:#7ecaee;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;font-family:Ubuntu,"Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif;font-size:16px;font-variant-ligatures:common-ligatures;line-height:1.4;min-height:100vh;}.client-error{max-width:480px;}.client-error__title{text-align:center;}.client-error__flash{background-image:url('/web/client/flash/flashplayer.png');display:inline-block;height:39px;margin:12px 12px 0;width:158px;}h1,h2,h3,h4,h5,h6{color:#fff;font-family:"Ubuntu Condensed","Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif;font-weight:400;margin:.6em 0;line-height:1.2;}h1,h2,h3,h4,h5{text-transform:uppercase;}p{margin:.75em 0;}a{color:#fff;cursor:pointer;outline:0;text-decoration:none;}</style>
+</head>
+
+<body id="client" class="flashclient">
+<div id="app">
+  
+  </div>
+<div id="client-ui">
+    <div id="flash-wrapper">
+        <div id="flash-container">
+            <div id="content" style="width: 45%;margin: 0px auto 0px;display: none">
+                <div class="client-error">
+                    <div style="margin-top:170px;">
+                        <div class="client-error__background-frank" ng-if="!ClientErrorController.mobile">
+                            <span class="client-error__text-contents">
+                                <h1 class="client-error__title" translate="CLIENT_ERROR_TITLE">Je bent bijna in {{hotelname}}!</h1>
+                                <p translate="CLIENT_ERROR_FLASH"><b>LET OP GOOGLE CHROME USERS</b>! Voordat je {{hotelname}} speelt, zul je Flash Player handmatig moeten aanzetten in de instellingen van je browser. <a href="{{path}}/article/90-activeer-flash-player-in-google-chrome" target="_blank">Lees ons recente nieuwsbericht</a> om te zien hoe je dit precies moet doen.  Nadat Flash is ingeschakeld, klik je op de gele Hotel knop hieronder en vervolgens klik je op "Flash uitvoeren" waarneer hier om gevraagd wordt!</p>
+                            </span>
+                            <div class="client-error__hotel-button-div">
+                                <a ng-href="http://www.adobe.com/go/getflashplayer" target="_blank" rel="noopener noreferrer" class="hotel-button" href="http://www.adobe.com/go/getflashplayer">
+                                    <span class="hotel-button__text" translate="NAVIGATION_HOTEL">Hotel</span>
+                                </a>
+                            </div>
+                            <div class="client-error__mobile">
+                                <p translate="CLIENT_ERROR_MOBILE">Als je op een iPad, iPhone of een Android-apparaat bent, kun je <a href="https://itunes.apple.com/nl/app/puffin-web-browser/id472937654?mt=8">Puffin</a> downloaden in de App Store of <a href="https://play.google.com/store/apps/details?id=com.cloudmosa.puffinFree&hl=nl">Puffin</a> op Google Play.</p>
+
+                                <div class="client-error__downloads">
+                                    <a ng-href="https://itunes.apple.com/nl/app/puffin-web-browser/id472937654?mt=8" target="_blank" rel="noopener noreferrer" class="client-error__appstore" href="https://itunes.apple.com/nl/app/puffin-web-browser/id472937654?mt=8"></a>
+                                    <a ng-href="https://play.google.com/store/apps/details?id=com.cloudmosa.puffinFree&hl=nl" target="_blank" rel="noopener noreferrer" class="client-error__googleplay" href="https://play.google.com/store/apps/details?id=com.cloudmosa.puffinFree&hl=nl"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $('#content').show();
+            </script>
+        </div>
+    </div>
+
+    <iframe id="page-content" class="hidden" allowtransparency="true" frameBorder="0" src="about:blank"></iframe>
+</div>
+</body>
+</html>

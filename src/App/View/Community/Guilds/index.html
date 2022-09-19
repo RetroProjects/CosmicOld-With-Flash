@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+
+<div class="page-content">
+    <div class="left-side">
+        {% if player %}
+        <h4>
+            My Groups forums
+        </h4>
+      
+        {% if forums is empty %}
+            <article class="default-section">
+                <div style="padding: 15px;">
+                   You are not yet a member of one of our groups
+                </div>
+            </article>
+        {% endif %}
+      
+        {% for category in forums %}
+        <a href="/guilds/{{category.id}}-{{category.slug}}" style="text-decoration: none">
+            <article class="default-section" style="margin-bottom: 15px">
+                <div style="background: url({{site.cpath}}/c_images/Badgeparts/generated/{{category.badge}}.png) 10px 50% no-repeat;background-position: right; margin-right: 22px;">
+                    <div class="aside-title-content">{{category.name}}</div>
+                    <div class="aside-desc-content">{{category.description}}</div>          
+                </div>
+            </article>
+        </a>
+        {% endfor %}
+        {% endif %}
+
+        <h4>
+            Public Groups forums
+        </h4>
+      
+        {% if public is empty %}
+            <article class="default-section">
+                <div style="padding: 15px;">
+                    Er zijn nog geen groepen aangemaakt!
+                </div>
+            </article>
+        {% endif %}
+      
+        {% for category in public %}
+        {% if category.user is empty %}
+        <a href="/guilds/{{category.id}}-{{category.slug}}" style="text-decoration: none">
+            <article class="default-section" style="margin-bottom: 15px">
+                <div style="background: url({{site.cpath}}/c_images/Badgeparts/generated/{{category.badge}}.png) 10px 50% no-repeat;background-position: right; margin-right: 22px;">
+                    <div class="aside-title-content">{{category.name}}</div>
+                    <div class="aside-desc-content">{{category.description}}</div>          
+                </div>
+            </article>
+        </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+  
+
+    <div class="right-side">
+      
+        <article class="default-section">
+            <div class="aside-title-content">{{locale.index_latest_activities}}</div>
+            <div class="aside-content">
+                <div class="related-articles-container">
+                    {% for post in latestposts %}
+                    <a href="/guilds/{{post.guild_id}}/thread/{{post.thread_id}}-{{post.slug}}#{{post.id}}" class="related-article-container">
+                        <div class="related-article-thumbnail" style="background-image: url({{site.fpath}}?figure={{post.author.look}}&headonly=1&direction=2&head_direction=2&action=&gesture=&size=m); margin-top: -5px;" class="pixelated small-head"></div>
+                        <div class="related-article-details">
+                            <div class="related-article-title">{{post.subject}}</div>
+                            <div class="related-article-date">{{post.created_at}} {{locale.index_by}} <b>{{post.author.username}}</b></div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </article>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{locale.title_header}}</h1>
+        {{locale.decs_header}}
+    </div>
+</header>
+<div class="page-content">
+    <div class="left-side">
+        {% include "Shop/Marketplace/nav.html" %}
+        <article class="default-section ranking-container" style="margin-top: 50px;">
+            <table class="default-table ranking-content">
+                <thead>
+                <tr>
+                    <th colspan="2">{{locale.furni_name}}</th>
+                    <th>{{locale.seller}}</th>
+                    <th>{{locale.furni_type}}</th>
+                    <th>{{locale.price}}</th>
+                </tr>
+                </thead>
+
+                <tbody class="marketplace">
+                {% for value in items %}
+                    <tr>
+                        <td><img src="{{site.cpath}}/meubels/{{value.catalog_name|replace({'*': "_"})}}_icon.png" class="pixelated"></td>
+                        <td><a href="#" style="border-bottom: 1px dotted;" class="payment-button" data-state="marketplace" data-id="{{value.id}}" data-costs="{{value.item_costs}}" data-type="{{value.currency}}" data-image="{{value.catalog_name}}">{{value.catalog_name}}</a></td>
+                        <td style="font-size: 14px">{{value.user.username}}</td>
+                        <td>{{value.currency}}</td>
+                        <td style="font-size: 14px; font-weight: bold">{{value.item_costs}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </article>
+    </div>
+    <div class="right-side" style="margin-top: 50px;">
+      
+        <aside class="default-section">
+            <div class="aside-title-content">{{shortname}} Marketplace</div>
+            <div class="aside-content">
+                <img src="http://www.habbox.com/assets/images//2012/09/03/v36KI.gif" align="right">
+                {{locale.marketplace_desc|raw}}
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

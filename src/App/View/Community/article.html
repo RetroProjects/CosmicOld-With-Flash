@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}{{article.title}}{% endblock %}
+{% block body %}
+<header class="page-header flex-container flex-vertical-center" style="background-size: 100%;width: 100%;background-image: url({{article.header}}); background-color: #8f8c8c;">
+    <div class="page-header-content">
+        <h1>{{article.title}}</h1>
+        {{article.short_story}}
+    </div>
+</header>
+
+<div class="page-content">
+    <div class="left-side">
+        <article class="default-section">
+            <div class="aside-title-content">{{article.title}}</div>
+            <div class="aside-desc-content">{{article.short_story}}</div>
+            <div class="aside-content">
+                {% if article.images is not empty %}
+                <img src="{{article.images}}" style="float:right">
+                {% endif %}
+                {{article.full_story|raw}}
+
+                <div class="article-author flex-container flex-vertical-center">
+                    <div class="author-image">
+                        {% if article.author == "0" %}
+                        <img src="/assets/images/web/avatar-frank.png" alt="Hotel Management">
+                        {% else %}
+                        <img src="{{site.fpath}}?figure={{article.author.look}}&direction=2&head_direction=3&gesture=sml&size=b&headonly=1" alt="{{article.author.username}}">
+                        {% endif %}
+                    </div>
+
+                    <div class="author-details">
+                        {% if article.author == "0" %}
+                        <div class="author-name">Hotel Management</div>
+                        {% else %}
+                        <div class="author-name"><a href="/profile/{{article.author.username}}" class="related-article-container">{{article.author.username}}</a></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <div class="right-side">
+
+       <aside class="default-section">
+            <div class="aside-title-content">{{locale.reactions}}</div>
+            <div class="aside-content">
+            <div class="nano has-scrollbar related-articles-container" style="height: 250px;">
+                <div class="nano-content" tabindex="0">
+                    <div class="nano-pane" style="display: block;">
+                        <div class="nano-slider" style="height: 0px; transform: translate(0px, 0px);"></div>
+                    </div>
+                    {% if posts == null  %}
+                    <p class="nopost">
+                        {{locale.reactions_empty}}
+                    </p>
+                    {% endif %}
+                    {% for post in posts %}
+                    {% if post.hidden != 1 or 'housekeeping_moderation_tools' in permissions %}
+                    <div class="ac-item" data-id="{{post.id}}" style="margin-bottom: 5px;border-radius: 10px; padding: 10px 8px 2px; {% if post.hidden == 1 %}filter: grayscale(100%);{% endif %}">
+                            <div style="float: left; vertical-align: middle; ">
+                                <img style="margin-top: -5px;" src="{{site.fpath}}?figure={{post.author.look}}&direction=2&head_direction=3&gesture=sml&size=s&headonly=1" alt="">
+                            </div>
+                        <strong>
+                            <a href="/profile/{{post.author.username}}">
+                                {{post.author.username}}
+                            </a>
+                        </strong>: {{post.message|raw}}
+
+                        {% if 'housekeeping_moderation_tools' in permissions %}
+                        <div style="float: right">
+                            <a href="#" style="float: right">
+                                <i class="fa {% if post.hidden == 0 %}fa-times{% else %}fa-eye{% endif %}" data-id="{{post.id}}" style="color: #7B7777;"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% if data.posts != null  %}
+                <div class="nano-pane" style="display: block;"><div class="nano-slider" style="height: 57px; transform: translate(0px, 0px);"></div></div>
+                {% endif %}
+            </div>
+            </div>
+            {% if player %}
+            <div class="input-group reaction-reply">
+                <input type="text" class="form-control" id="reply-message" placeholder="{{locale.reactions_fill}}" required>
+                <span class="input-group-btn">
+                    <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                    <button type="submit" class="btn btn-primary article-reply" data-csrf="{{csrf_token}}" data-id="{{article.id}}" style="width:64px">{{locale.reactions_post}}</button>
+                </span>
+            </div>
+            {% endif %}
+        </aside>
+
+        <aside class="default-section">
+            <div class="aside-title-content">{{locale.latest_news}}</div>
+            <div class="aside-content">
+                <div class="related-articles-container">
+                    {% for item in latest_news %}
+                    <a href="/article/{{item.id}}-{{item.slug}}" class="related-article-container">
+                        <div class="related-article-thumbnail" style="background-image: url({{item.header}});"></div>
+                        <div class="related-article-details">
+                            <div class="related-article-title">{{item.title}} </div>
+                            <div class="related-article-date">{{item.timestamp|date("d-M H:i")}}</div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

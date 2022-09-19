@@ -1,0 +1,475 @@
+{% extends "base.html" %}
+{% block body %}
+<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+
+<header class="page-header flex-container flex-vertical-center">
+   <div class="page-header-content">
+        <h1>{{locale.title_draw}}</h1>
+        {{locale.draw_desc}}
+   </div>
+</header>
+<div class="page-content">
+   <div class="left-side">
+      <article class="default-section" style="min-height: 456px;">
+         <div class="aside-title-content">Draw something</div>
+         <div class="aside-content">
+            <div id="avatarbox">
+               <div class="uusername" style="font-size: 12px;margin-top: 13px;margin-left: 30px;color: #FFF;">{{player.username}}</div>
+               <div class="aavatara" style="float: left;background: url('{{site.fpath}}?figure={{player.look}}&amp;action=wav&amp;gesture=sml&amp;direction=4&amp;head_direction=3&amp;size=n&amp;headonly=0&amp;img_format=png') no-repeat;width: 60px;height: 120px;margin-left: 15px;margin-top: 10px;"></div>
+               <div class="preview" style="float: left; margin-left: 15px; margin-top: 7px; width: 42px; height: 42px;"></div>
+               <div class="tip-container">
+                     <div class="icon-eraser">
+                        <svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g id="eraser_bw">
+                                 <g id="eraser_black_and_white" fill="#000000">
+                                    <polygon id="Path" points="15.0000024 39 18.0000024 39 18.0000024 42.0000057 15.0000024 42.0000057"></polygon>
+                                    <polygon id="Path" points="15.0000024 39 31.5 39 31.5 42.0000057 15.0000024 42.0000057"></polygon>
+                                    <polygon id="Path" points="12 39 15 39 15 42.0000057 12 42.0000057"></polygon>
+                                    <polygon id="Path" points="9 36 12 36 12 39.0000057 9 39.0000057"></polygon>
+                                    <polygon id="Path" points="6 33 9 33 9 36.0000057 6 36.0000057"></polygon>
+                                    <polygon id="Path" points="3 30 6 30 6 33.0000057 3 33.0000057"></polygon>
+                                    <polygon id="Path" points="21 21 24 21 24 24.0000057 21 24.0000057"></polygon>
+                                    <polygon id="Path" points="24 24 27 24 27 27.0000057 24 27.0000057"></polygon>
+                                    <polygon id="Path" points="18 18 21 18 21 21.0000057 18 21.0000057"></polygon>
+                                    <polygon id="Path" points="15 15 18 15 18 18.0000057 15 18.0000057"></polygon>
+                                    <polygon id="Path" points="18 36 21 36 21 39.0000057 18 39.0000057"></polygon>
+                                    <polygon id="Path" points="24 30 27 30 27 33.0000057 24 33.0000057"></polygon>
+                                    <polygon id="Path" points="21 33 24 33 24 36.0000057 21 36.0000057"></polygon>
+                                    <polygon id="Path" points="27 27 30 27 30 30.0000057 27 30.0000057"></polygon>
+                                    <polygon id="Path" points="30 24 33 24 33 27.0000057 30 27.0000057"></polygon>
+                                    <polygon id="Path" points="36 18 39 18 39 21.0000057 36 21.0000057"></polygon>
+                                    <polygon id="Path" points="33 21 36 21 36 24.0000057 33 24.0000057"></polygon>
+                                    <polygon id="Path" points="36 18 39 18 39 21.0000057 36 21.0000057"></polygon>
+                                    <polygon id="Path" points="39 12 42 12 42 15.0000057 39 15.0000057"></polygon>
+                                    <polygon id="Path" points="39 15 42 15 42 18.0000057 39 18.0000057"></polygon>
+                                    <polygon id="Path" points="36 9 39 9 39 12.0000057 36 12.0000057"></polygon>
+                                    <polygon id="Path" points="30 3 33 3 33 6.00000567 30 6.00000567"></polygon>
+                                    <polygon id="Path" points="33 6 36 6 36 9.00000567 33 9.00000567"></polygon>
+                                    <polygon id="Path" points="0 24 3 24 3 27.0000057 0 27.0000057"></polygon>
+                                    <polygon id="Path" points="0 27 3 27 3 30.0000057 0 30.0000057"></polygon>
+                                    <polygon id="Path" points="3 21 6 21 6 24.0000057 3 24.0000057"></polygon>
+                                    <polygon id="Path" points="9 15 12 15 12 18.0000057 9 18.0000057"></polygon>
+                                    <polygon id="Path" points="6 18 9 18 9 21.0000057 6 21.0000057"></polygon>
+                                    <polygon id="Path" points="12 12 15 12 15 15.0000057 12 15.0000057"></polygon>
+                                    <polygon id="Path" points="15 9 18 9 18 12.0000057 15 12.0000057"></polygon>
+                                    <polygon id="Path" points="21 3 24 3 24 6.00000567 21 6.00000567"></polygon>
+                                    <polygon id="Path" points="18 6 21 6 21 9.00000567 18 9.00000567"></polygon>
+                                    <polygon id="Path" points="24 0 27 0 27 3.00000567 24 3.00000567"></polygon>
+                                    <polygon id="Path" points="27 0 30 0 30 3.00000567 27 3.00000567"></polygon>
+                                    <rect id="Rectangle-2" x="12" y="18" width="6" height="3"></rect>
+                                    <rect id="Rectangle-2" x="6" y="24" width="18" height="3"></rect>
+                                    <rect id="Rectangle-3" x="6" y="30" width="18" height="3"></rect>
+                                    <rect id="Rectangle-3" x="12" y="36" width="6" height="3"></rect>
+                                 </g>
+                                 <g id="Group-2" transform="translate(3.000000, 3.000000)" fill="#FFFFFF">
+                                    <rect id="Rectangle-7" x="21" y="0" width="6" height="21"></rect>
+                                    <rect id="Rectangle-8" x="15" y="6" width="18" height="9"></rect>
+                                    <rect id="Rectangle-9" x="12" y="9" width="3" height="3"></rect>
+                                    <rect id="Rectangle-10" x="18" y="14" width="15" height="4"></rect>
+                                    <rect id="Rectangle-11" x="18" y="3" width="3" height="3"></rect>
+                                    <rect id="Rectangle-12" x="27" y="3" width="3" height="3"></rect>
+                                    <rect id="Rectangle-13" x="24" y="21" width="3" height="3"></rect>
+                                    <rect id="Rectangle-14" x="27" y="18" width="3" height="3"></rect>
+                                    <rect id="Rectangle-15" x="33" y="9" width="3" height="6"></rect>
+                                    <rect id="Rectangle-16" x="9" y="12" width="3" height="3"></rect>
+                                    <rect id="Rectangle-17" x="6" y="15" width="3" height="6"></rect>
+                                    <rect id="Rectangle-18" x="3" y="18" width="15" height="3"></rect>
+                                    <rect id="Rectangle-19" x="0" y="21" width="3" height="6"></rect>
+                                    <rect id="Rectangle-20" x="0" y="24" width="24" height="3"></rect>
+                                    <rect id="Rectangle-21" x="6" y="30" width="12" height="3"></rect>
+                                 </g>
+                              </g>
+                           </g>
+                        </svg>
+                     </div>
+                     <div class="tip">Shift + Click to Erase</div>
+                  </div>
+           </div>
+            <div class="table-container">
+               <table style="margin: 0 auto;border-collapse: collapse;background-color: white;border: 4px solid black;box-shadow: 7px 7px 0 0;" id="pixelCanvas"></table>
+            </div>
+         </div>
+      </article>
+   </div>
+   <div class="right-side">
+      <aside class="default-section">
+         <div class="aside-title-content">Draw tools</div>
+         <div class="aside-content">
+            <div class="clearfix">
+               <div class="menu-container" >
+                  <div class="menu"style="padding-top:10px">
+                     <div class="color-selector">
+                        <div class="palette">
+                           <div class="palette-color pink"></div>
+                           <div class="palette-color red"></div>
+                           <div class="palette-color orange"></div>
+                           <div class="palette-color yellow"></div>
+                           <div class="palette-color green1"></div>
+                           <div class="palette-color green2"></div>
+                           <div class="palette-color blue1"></div>
+                           <div class="palette-color blue2"></div>
+                           <div class="palette-color purple1"></div>
+                           <div class="palette-color purple2"></div>
+                           <div class="palette-color nude"></div>
+                           <div class="palette-color black"></div>
+                           <div class="palette-color white"></div>
+                        </div>
+                        <div class="color-input">
+                           <div class="color-icon">
+                              <svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="color" fill="#000000">
+                                       <rect id="Rectangle-4" x="12" y="3" width="3" height="15"></rect>
+                                       <rect id="Rectangle-4" x="24" y="3" width="3" height="18"></rect>
+                                       <rect id="Rectangle-4" x="15" y="0" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="15" y="12" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="24" y="24" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="21" y="21" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="27" y="21" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="9" y="18" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="6" y="21" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="3" y="24" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="0" y="27" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="27" y="36" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="30" y="33" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="33" y="30" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="36" y="27" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="39" y="36" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="39" y="33" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="42" y="33" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="39" y="24" width="9" height="9"></rect>
+                                       <rect id="Rectangle-4" x="36" y="21" width="9" height="3"></rect>
+                                       <rect id="Rectangle-4" x="33" y="18" width="9" height="3"></rect>
+                                       <rect id="Rectangle-4" x="30" y="15" width="9" height="3"></rect>
+                                       <rect id="Rectangle-4" x="27" y="12" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="24" y="39" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="21" y="42" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="18" y="45" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="3" y="30" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="6" y="33" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="9" y="36" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="12" y="39" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="15" y="42" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="18" y="9" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="21" y="6" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="18" y="0" width="3" height="3"></rect>
+                                       <rect id="Rectangle-4" x="21" y="0" width="3" height="3"></rect>
+                                    </g>
+                                 </g>
+                              </svg>
+                           </div>
+                           <input type="color" id="colorPicker" value="#F5EC9D">
+                           <input type="submit" value="add" id="colorPickerSubmit">
+                        </div>
+                     </div>
+                     <div class="grid-toggle">
+                        <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                        <input type="submit" value="reset" id="resetField">
+                        <input type="submit" id="buybadge" value="({{settings.draw_badge_price}}) {{settings.draw_badge_currency}}">
+                     </div>
+                  </div>
+               </div>
+              <section style="display:none" id="img"><img /></section>
+              <section id="canvas" style="display:none"><canvas /></section>
+               <style>
+                  #preview td {
+                  border: 0;
+                  }
+               </style>
+            </div>
+         </div>
+      </aside>
+   </div>
+</div>
+<style>
+   #avatarbox {
+   background: url('/assets/images/avatarbox.png');
+   width: 199px;
+   height: 180px;
+   float: right;
+   }
+  
+   .transparent {
+   background-color: rgb(0,0,0,0);
+   }
+   .red {
+   background-color: #FF5721;
+   }
+   .pink {
+   background-color: #EC407A;
+   }
+   .orange {
+   background-color: #FF9800;
+   }
+   .yellow {
+   background-color: #FFEB3B;
+   }
+   .green1 {
+   background-color: #8BC349;
+   }
+   .green2 {
+   background-color: #4BAF50;
+   }
+   .blue1 {
+   background-color: #05A9F4;
+   }
+   .blue2 {
+   background-color: #3F51B5;
+   }
+   .purple1 {
+   background-color: #673AB7;
+   }
+   .purple2 {
+   background-color: #9B28B0;
+   }
+   .black {
+   background-color: #000;
+   }
+   .nude {
+   background-color: #ffe090;
+   }
+   .nude2 {
+   background-color: #ffc890;
+   }
+   .menu-container {
+   position:relative;
+   }
+   .menu {
+   margin: 0 auto;
+   margin-bottom: 1.2em;
+   min-width: 100px;
+   width: 95%;
+   min-height: 300px;
+   background-color: white;
+   border: 4px solid black;
+   box-shadow: 7px 7px 0 0;
+   font-family: "Press Start 2P", monospace; 
+   font-size: 11px;
+   }
+   .clearfix::after {
+   content: "";
+   clear: both;
+   display: table;
+   }
+   #pixelCanvas table,
+   td {
+   margin:0;
+   padding:0;
+   }
+   #pixelCanvas td {
+   border: 1px solid #000;
+   }
+   #pixelCanvas td.pixel {
+   background-color: #fff;
+   }
+   #pixelCanvas td.pixel:hover {
+   box-shadow: 38px 38px rgba(0,0,0,0.1) inset;
+   }
+   .table-container {
+   position: relative;
+   width:70%;
+   }
+   #pixelCanvas tr {
+   height: 20px;
+   }
+   #pixelCanvas td {
+   width: 19px;
+   }
+   table.pixel-canvas-nogrid td {
+   border-color: transparent !important;
+   }
+   .color-selector {
+   margin-bottom: 20px; 
+   clear: both;
+   }
+   #sizePicker {
+   margin-left: 20px;
+   margin-right: 20px;
+   padding:0;
+   }
+   .color-input {
+   margin-left: 20px;
+   vertical-align: middle;
+   }
+   #colorPicker {
+   width: 5em;
+   display: inline-block;
+   }
+   #colorPickerSubmit {
+   width: 6em;
+   display: inline-block;
+   }
+   .color-icon {
+   display: inline-block;
+   width: 48px;
+   height: 48px;
+   vertical-align: middle;
+   }
+   input[type=submit] {
+   width: 88%;
+   height: 42px;
+   background-color: #F5EC9D;
+   border: 3px solid #000;
+   box-shadow: 4px 4px 0 0;
+   font-family: 'Press Start 2P', monospace;
+   font-size: 0.9em;
+   text-transform: lowercase;
+   margin-bottom: 10px;
+   }
+   input[type=submit]:hover {
+   background-color: #fcf5c1;
+   }
+   input[type=submit]:focus {
+   outline: none;
+   }
+   input[type=submit]:active {
+   background-color: #F5EC9D;
+   color: #000;
+   box-shadow: 1px 1px 0 1px #000 inset;
+   }
+   input[type=number] {
+   height: 30px;
+   border: 3px solid #000;
+   margin:0;
+   margin-bottom: 12px;
+   padding-left: 4px;
+   font-family: 'VT323', monospace;
+   font-size: 1.5em;
+   }
+   .grid-input {
+   clear: both;
+   }
+   .grid-input-col {
+   float: left;
+   }
+   .grid-input-col input {
+   width: 100%;
+   }
+   .grid-input-col-left, .grid-input-col-right {
+   width: 40%;
+   }
+   .grid-input-col-center {
+   text-align: center;
+   width: 20%;
+   }
+   .small-text {
+   font-family: 'Press Start 2P', monospace;
+   font-size: 1em;
+   line-height: 30px;
+   }
+   .tip-container {
+   margin: 0 auto;
+   min-width: 100px;
+   width: 70%;
+   margin-bottom: 20px;
+   margin-top: 160px;
+   }
+   .tip {
+   display: inline-block;
+   font-family: 'Press Start 2P', monospace;
+   font-size: 0.7em;
+   line-height: 1.6em;
+   width: 65%;
+   vertical-align: bottom;
+   }
+   .icon-eraser {
+   display: inline-block;
+   width: 42px;
+   }
+   .palette {
+   margin-left: 20px;
+   margin-right: 20px;
+   }
+   .palette-color {
+   display: inline-block;
+   width: 34px;
+   height: 34px;
+   border: 3px solid black;
+   margin-bottom: 15px;
+   }
+   .palette-color-selected {
+   box-shadow: 0 0 0 2px white,
+   0 0 0 5px black;
+   }
+   .palette-color:hover {
+   box-shadow: 0 0 0 2px white,
+   0 0 0 5px black;
+   }
+   .grid-toggle {
+   margin-left:20px;
+   margin-bottom: 25px;
+   }
+   /*modified checkbox styling from https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
+   .label-container {
+   display: block;
+   position: relative;
+   padding-left: 45px;
+   font-size: 0.9em;
+   margin-bottom: 12px;
+   cursor: pointer;
+   line-height: 34px;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   }
+   /* Hide the browser's default checkbox */
+   .label-container input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   }
+   /* Create a custom checkbox */
+   .checkmark {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 25px;
+   width: 25px;
+   border: 3px solid black;
+   }
+   /* On mouse-over, add a yellow background color */
+   .label-container:hover input ~ .checkmark {
+   background-color: #F5EC9D;
+   }
+   /* Create the checkmark/indicator (hidden when not checked) */
+   .checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+   }
+   /* Show the checkmark when checked */
+   .label-container input:checked ~ .checkmark:after {
+   display: block;
+   }
+   /* Style the checkmark/indicator */
+   .label-container .checkmark:after {
+   left: 9px;
+   top: 5px;
+   width: 5px;
+   height: 10px;
+   border: solid #000;
+   border-width: 0 3px 3px 0;
+   -webkit-transform: rotate(45deg);
+   -ms-transform: rotate(45deg);
+   transform: rotate(45deg);
+   }
+   /*Add some responsivness */
+   @media screen and (max-width: 720px) {
+   .table-container, .menu-container {
+   float: none;
+   width: 100%;
+   margin-bottom: 2em;
+   }
+   .menu {
+   width: 90%;
+   }
+   .tip-container {
+   width: 90%;
+   }
+</style>
+<script>
+
+</script>
+{% endblock %}

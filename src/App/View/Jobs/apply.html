@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="page-content">
+    <article class="default-section job-offer-apply">
+        <div class="aside-title-content">{{locale.title}}</div>
+        <div class="aside-content">
+        {{locale.content_1}}
+        <br><br>
+        {{locale.content_2}}
+        <hr>
+        <h4>{{job.job}} - {{locale.description}}</h4>
+        {{job.full_description|raw}}<br />
+        <hr>
+        <form action="jobs/apply/request" method="post" autocomplete="off">
+            <h5>{{locale.question_name}}</h5>
+            <input type="text" class="rounded-input" name="name" value="{{player.username}}" readonly>
+
+            <h5>{{locale.question_age}}</h5>
+            <input type="text" class="rounded-input" name="age">
+
+            <h5>{{locale.question_why}}</h5>
+            <textarea name="job_why" class="rounded-textarea"></textarea>
+
+            <h5>{{locale.question_time}}</h5>
+            <div class="form-help">{{locale.question_time_help}}</div>
+
+            <div class="schedules-container">
+                <div class="schedule-container">
+                    <div class="day">
+                        {{locale.monday}}
+                    </div>
+                    <div class="schedule">
+                        <input type="text" class="rounded-input" name="when_monday" placeholder="{{locale.time_to_time}}">
+                    </div>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="day">
+                        {{locale.tuesday}}
+                    </div>
+                    <div class="schedule">
+                        <input type="text" class="rounded-input" name="when_tuesday" placeholder="{{locale.time_to_time}}">
+                    </div>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="day">
+                        {{locale.wednesday}}
+                    </div>
+                    <div class="schedule">
+                        <input type="text" class="rounded-input" name="when_wednesday" placeholder="{{locale.time_to_time}}">
+                    </div>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="day">
+                        {{locale.thursday}}
+                    </div>
+                    <div class="schedule"> 
+                        <input type="text" class="rounded-input" name="when_thursday" placeholder="{{locale.time_to_time}}">
+                    </div>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="day">
+                        {{locale.friday}}
+                    </div>
+                    <div class="schedule">
+                        <input type="text" class="rounded-input" name="when_friday" placeholder="{{locale.time_to_time}}">
+                    </div>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="day">
+                        {{locale.saturday}}
+                    </div>
+                    <div class="schedule">
+                        <input type="text" class="rounded-input" name="when_saturday" placeholder="{{locale.time_to_time}}">
+                    </div>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="day">
+                        {{locale.sunday}}
+                    </div>
+                    <div class="schedule">
+                        <input type="text" class="rounded-input" name="when_sunday" placeholder="{{locale.time_to_time}}">
+                    </div>
+                </div>
+            </div>
+
+            <p class="submit-button">
+                <input type="hidden" name="job_id" value="{{job.id}}">
+                <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                <button type="submit" class="rounded-button brown">{{locale.send}}</button>
+            </p>
+        </form>
+      </div>
+    </article>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <div class="page-content">
+            <article class="default-section left-side">
+                <div class="aside-title-content">{{locale.title}}</div>
+                <div class="aside-content">
+                    {{locale.content_1}} <strong>{{locale.content_2}}</strong><br><br>
+                    <form action="password/claim/validate" method="post" class="registration-form">
+                        <h4 class="form-subcategory">{{locale.username}}</h4>
+                        <div class="row">
+                            <input type="text" name="username" class="rounded-input darkblue-active" maxlength="32" autofocus required>
+                        </div>
+
+                        <h4 class="form-subcategory">{{locale.email}}</h4>
+                        <div class="row">
+                            <input type="email" name="email" class="rounded-input darkblue-active" required>
+                        </div>
+                        <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                        <p style="text-align: center; margin-top: 30px; padding-bottom: 30px;"><button type="submit" class="rounded-button blue plain submit-form default-prevent" id="registration-recaptcha">{{locale.send}}</button></p>
+                    </form>
+                </div>
+            </article>
+
+            <article class="default-section right-side">
+                <div class="aside-title-content">{{locale.wrong_page}}</div>
+                <div class="aside-content">
+                    <p>{{locale.wrong_page_content_1}}</p>
+                    <p><a href="/">{{locale.back_to_home}}</a></p>
+                </div>
+            </article>
+        </div>
+{% endblock %}

@@ -1,0 +1,324 @@
+{% extends "permissions.html" %}{% set set_permission = 'homepage' %}{% block base %}{% if load is not defined %}
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="robots" content="follow, index">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <title>{{title}} - {{site.sitename}}</title>
+
+    <meta name="description"
+        content="Virtual world for young people where you can make and meet friends. Meet and make friends, chat with others, create your own avatar, design your own room for free and much more ...">
+    <meta name="keywords"
+        content="cosmic, {{site.sitename}}, virtual, world, social network, free, community, avatar, chat, online, teen, roleplaying, join, social, groups, forums, safe, play, games, online, friends, teens, rare, rare meubi, collect, make, collect, contact, meubi, furniture, pets, furnish room, share, expression, badges, hangout, music, celebrity, VIP visits, celebs, mmo, mmorpgs, massive multiplayer, dox , dox hotel, dox hotel, space hotel, space hotel, space, sunnie, sunnie day, sunnieday, habbo, HABBO, habbo hotel, habboo, habbo city, habbocity, cool, virtual world, vip, retro, retro hotel, habbo retro, free , free habbo, holo">
+
+    <meta property="og:title" content="{{site.sitename}}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{site.domain}}">
+    <meta property="og:image" content="/assets/images/summary-picture.png">
+    <meta property="og:description" content="Virtual world where you can make and meet friends.">
+    <meta property="og:site_name" content="{{site.sitename}}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/bbeditor.css" type="text/css" />
+    <link rel="stylesheet" href="/assets/css/fonts.css">
+    <link rel="stylesheet" href="/assets/css/flaticon.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/homes.css">
+    <link rel="stylesheet" href="/assets/css/selectric.css">
+    <link rel="stylesheet" href="/assets/css/circle.css?v=5">
+    <link rel="stylesheet" href="/assets/css/web.{% if player %}{{player.template}}{% else %}{% if template %}{{template}}{% else %}light{% endif %}{% endif %}.css?v={{cache_timestamp}}">
+    <link rel="stylesheet" href="/assets/css/web.responsive.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
+  
+    <script>
+    var Site = {
+        name: "{{site.sitename}}",
+        url: "{{site.domain}}",
+        game_url: "{{site.cpath}}",
+        figure_url: "{{site.fpath}}"
+    }
+    
+    {% if player is empty %}  
+    var User = {
+        id: 0,
+        username: "",
+        online: 0,
+        is_logged: false,
+        is_staff: false
+    }
+    {% else %}
+    var Client = {
+        client_radio: "{{client.client_radio}}",
+        nitro_path: "{{client.nitro_path}}"   
+    }
+    var User = {
+        id: {{player.id}},
+        username: "{{player.username}}",
+        is_logged: true,
+        ticket: "{{player.auth_ticket}}",
+        is_staff: {% if player.rank >= 3 %}true{% else %}false{% endif %}
+
+    };
+    {% endif %}
+    var Configuration = {
+        {% if publickey is not empty %}recaptcha_public: "{{publickey}}",{% endif %}
+        revision: "{{revision}}2213",
+        cache: "{{cache_timestamp}}",
+        findretros: {% if findretros %}true{% else %}false{% endif %}
+    }
+    </script>
+</head>
+
+<body class="flex-container flex-direction-column">
+    <noscript>
+        <style>
+            .loading-container {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <div class="loading-container">
+        <div id="loading-background"></div>
+        <div class="loading-content">
+            <div class="c100 center">
+                <span></span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>
+            <div class="loading-bodytext"></div>
+        </div>
+    </div>
+
+    <div class="page-loading"></div>
+    <div class="notifications-container"></div>
+
+    <div class="cookies-accept-container">
+        <div class="close-container">&times;</div>
+        {{site.sitename}} {{locale_base.cookies}}
+        <a href="/help" target="_blank">{{locale_base.read_more}}</a>
+    </div>
+
+    <div id="about-dialog" class="login-popup zoom-anim-dialog mfp-hide">
+        <h1 class="aside-title">{{site.sitename}}</h1>
+        <p>{{locale_base.thanks_for_playing}} {{site.shortname}}!<br>{{site.shortname}} {{locale_base.made_with_love}}
+            ♥<br><br>
+            <h4>Cosmic 3.0</h4>Raizer
+        </p>
+
+        <h5>{{locale_base.and_all}} {{site.shortname}}'s ♥</h5>
+    </div>
+
+    {% if player is empty %}
+    <div id="login-dialog" class="login-popup zoom-anim-dialog mfp-hide">
+        <h3 class="aside-title">Log in {{site.sitename}}</h3>
+        <div class="login-form">
+            <label for="login-username-input-target" class="username-input">
+                <input type="text" name="username" class="rounded-input blue-active" id="login-username-input-target"
+                    placeholder="{{site.shortname}}{{locale_base.login_name}}..." required>
+                <i class="flaticon-user-1"></i>
+            </label>
+            <label for="login-password-input-target" class="password-input">
+                <input type="password" name="password" class="rounded-input blue-active"
+                    id="login-password-input-target" placeholder="{{locale_base.login_password}}..." autocomplete="off"
+                    required>
+                <i class="flaticon-padlock"></i>
+            </label>
+            <input type="hidden" name="csrftoken" value="{{csrf_token}}" />
+            <a href="password/claim" class="claim-password" data-close-popup="true"
+                style="margin-top:1px">{{locale_base.login_lost_password}}</a>
+            <button type="submit" class="rounded-button blue plain" id="login-request">Log in</button>
+        </div>
+    </div>
+    {% endif %}
+    {% if player %}
+    <div id="report-item" class="payment-popup zoom-anim-dialog mfp-hide">
+        <button title="{{locale_base.close}}" type="button" class="mfp-close" style="color:#000">&#215;</button>
+        <h3 class="aside-title">{{locale_base.report_message}}</h3>
+        <p>
+            {{locale_base.report_certainty}}
+        </p>
+        <form action="/ajax/report/add" method="post" class="login-form" id="reportForm">
+
+            <p>
+                <button type="submit" class="rounded-button blue plain"
+                    id="reportItem">{{locale_base.report_inappropriate}}</button>
+                <input type="hidden" id="reportItemid" name="itemId" value="">
+            </p>
+        </form>
+    </div>
+    {% endif %}
+
+    <header class="header-container pixelated is-small">
+        <div class="header-content"> 
+            <div class="logo"><a href="/home"><img src="https://habbofont.net/font/hma/{{site.shortname}}.gif"
+                        style="margin-top: 30px;"></a></div>
+            <div class="account-container">
+                <div class="account-title">
+                    {{locale_base.header_slogan2}}
+                </div>
+
+                <div class="account-buttons">
+                    {% if player is empty %}
+                    <button class="rounded-button white login-dialog-button">{{locale_base.header_login}}</button>
+                    <span>of</span>
+                    <a href="/registration" class="rounded-button white plain">{{locale_base.header_register}}</a>
+                    {% else %}
+                    {% if site.buttons.client_flash_button %}
+                        <a href="/hotel" class="rounded-button white plain hotel-button flashButton">{{locale_base.header_to}} {{site.sitename}}</a>
+                    {% endif %} 
+                     {% if site.buttons.client_nitro_button %}
+                    <a href="/hotel=beta" class="rounded-button white plain hotel-button nitroButton">{{locale_base.header_to}} Beta {{site.sitename}}</a>
+                    {% endif %}
+                    <button class="rounded-button white plain">{{online_count}} {{site.sitename}}'s online</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navigation-container">
+        <ul class="navigation-menu flex-container">
+            <li class="navigation-item {% if "home" in page %}selected {% endif %}" data-category="home"><a
+                    href="/home">{{locale_base.nav_home}}</a></li>
+            <li class="navigation-item has-items {% if "community" in page %}selected {% endif %}"
+                data-category="community">
+                <a href="/articles">{{locale_base.nav_community}}</a>
+                <ul class="navigation-submenu">
+                    <li class="navigation-subitem"><a href="/articles">{{locale_base.nav_news}}</a></li>
+                    <li class="navigation-subitem"><a href="/jobs">{{locale_base.nav_jobs}}</a></li>
+                    <li class="navigation-subitem"><a href="/community/photos">{{locale_base.nav_photos}}</a></li>
+                    <li class="navigation-subitem"><a href="/community/rares">{{locale_base.nav_rarevalue}}</a></li>
+                    <li class="navigation-subitem"><a href="/community/staff">{{site.shortname}} {{locale_base.nav_staff}}</a></li>
+                    <li class="navigation-subitem"><a href="/community/team">{{site.shortname}} {{locale_base.nav_team}}</a></li>
+                </ul>
+            </li>
+
+            {% if player %}
+            <li class="navigation-item has-items {% if "shop" in page %}selected {% endif %}" data-category="shop">
+                <a href="/shop">{{site.shortname}} {{locale_base.nav_shop}}</a>
+                <ul class="navigation-submenu">
+                    <li class="navigation-subitem"><a href="/shop">{{locale_base.nav_buy_points}}</a></li>
+                    <li class="navigation-subitem"><a href="/shop/club">{{locale_base.nav_buy_club}}</a></li>
+                    <li class="navigation-subitem"><a href="/shop/drawbadge">{{locale_base.nav_drawyourbadge}}</a></li>
+                    <li class="navigation-subitem"><a href="/settings/namechange">{{locale_base.nav_changename}}</a>
+                    </li>
+                </ul>
+            </li>
+            {% endif %}
+
+            <li class="navigation-item {% if "games" in page %}selected {% endif %}" data-category="games"><a
+                    href="/games/ranking">{{locale_base.nav_highscores}}</a></li>
+            <li class="navigation-item {% if "forum" in page %}selected {% endif %}" data-category="forum"><a
+                    href="/guilds">{{locale_base.nav_forum}}</a></li>
+
+            <li class="navigation-item has-items {% if "help" in page %}selected {% endif %}" data-category="help">
+                <a href="/help">{{locale_base.nav_helptool}}</a>
+                <ul class="navigation-submenu">
+                    <li class="navigation-subitem"><a href="/help">{{locale_base.nav_helptool}}</a></li>
+                    {% if player %}
+                    <li class="navigation-subitem"><a href="/help/requests/view">{{locale_base.nav_helptickets}}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+
+            {% if 'housekeeping' in permissions %}
+            <li class="navigation-item">
+                <a href="/housekeeping" target="_blank">{{locale_base.nav_housekeeping}}</a>
+            </li>
+            {% endif %}
+
+            {% if player %}
+            <li class="navigation-item navigation-right-side-item has-items">
+                <a href="#">
+                    <div class="account-avatar"><img src="{{site.fpath}}?figure={{player.look}}&gesture=sml"
+                            alt="{{player.username}}" class="pixelated"></div>
+                    <span>{{player.username}}</span>
+                </a>
+                <ul class="navigation-submenu">
+                    <li class="navigation-subitem"><a href="/hotel">{{locale_base.user_to}} {{site.sitename}}</a></li>
+                    <li class="navigation-subitem"><a
+                            href="/profile/{{player.username}}">{{locale_base.user_profile}}</a></li>
+                    <li class="navigation-subitem"><a href="/settings">{{site.shortname}} ID
+                            {{locale_base.user_settings}}</a></li>
+                    <li class="navigation-subitem"><a href="/logout" target="_self">{{locale_base.user_logout}}</a></li>
+                </ul>
+            </li>
+            {% endif %}
+    </nav>
+
+    <section class="page-container" data-page="{% if page is empty %}lost{% else %}{{page}}{% endif %}">
+        {% block body %} {% endblock %}
+    </section>
+
+    <footer class="footer-container">
+        <div class="footer-copyright">&copy; 2019 {{site.domain}} | <a href="/help/">{{locale_base.footer_helptool}}</a> | <a
+                href="#" class="about-dialog-button">Cosmic</a></div>
+    </footer>
+
+    {% if player %}
+    <div id="hotel-container">
+        <div class="client-buttons">
+            <button class="client-close rounded-button blue plain">
+                <i style="margin-top:2px;margin-left:3px;" class="client-icon fa fa-arrow-left" aria-hidden="true"></i>
+                <span class="client-close-expand"><span>Web</span></span>
+            </button>
+            <button class="client-fullscreen rounded-button blue plain">
+                <i class="client-icon client-fullscreen-icon"></i>
+                <i class="client-icon client-fullscreen-icon-back hidden"></i>
+            </button>
+
+            <button class="client-count rounded-button blue plain">
+                {% if 'housekeeping' in permissions %}<a href="/housekeeping" target="_blank"
+                    style="color:#fff;text-decoration: none;"><i class="fa fa-user"></i> <b
+                        id="count">{{online_count}}</b></a>{% else %}<i class="fa fa-user"></i> <b
+                    id="count">{{online_count}}</b>{% endif %}
+            </button>
+
+            <button class="client-radio rounded-button blue plain">
+                <audio controls id="stream" style="display:none">
+                    <source type="audio/mpeg">
+                </audio>
+
+                <i class="fa fa-play"></i>
+                <i class="fa fa-pause" style="display: none"></i>
+
+                <i class="fa fa-volume-down"></i>
+                <i class="fa fa-volume-up"></i>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <script src="/assets/js/js.cookie.js"></script>
+    <script src="/assets/js/jquery.history.js"></script>
+    <script src="/assets/js/jquery.fullscreen.min.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.js"></script>
+    <script src="/assets/js/selectric.js?v=34212"></script>
+    <script src="/assets/js/functions.js"></script>
+    <script src="/assets/js/web/loading.js?v={{cache_timestamp}}"></script>
+    <script src="/assets/js/pagination.js"></script>
+    <script src="/assets/js/jquery.wysibb.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{paypal_client_id}}&currency={{paypal_currency}}&disable-funding=credit,card"></script>
+
+</body>
+
+</html>
+{% else %}
+{{ block('body') }}
+{% endif %}
+{% endblock %}

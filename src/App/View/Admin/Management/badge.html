@@ -1,0 +1,56 @@
+{% extends "Admin/base.html" %}
+{% block page %}Badge management{% endblock %}
+{% block jsfile %}badge{% endblock %}
+{% block body %}
+<div class="row">
+   {% if badges is empty %}
+    <div class="col-lg-12">
+      <div class="alert alert-danger" role="alert">
+          <div class="alert-text">No badge requests found</div>
+      </div>
+  </div>
+    {% endif %}
+   {% for badge in badges %}
+   <div class="col-lg-3" id="{{badge.id}}">
+      <div class="kt-portlet">
+         <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+               <h3 class="kt-portlet__head-title kt-font-primary">
+                  <img src="{{site.fpath}}?figure={{badge.user_id.look}}&amp;headonly=1&amp;direction=2&amp;head_direction=2&amp;action=&amp;size=s&amp;" alt="image">
+                  {{badge.user_id.username}}
+               </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+               <div class="kt-portlet__head-actions">
+                  <div class="dropdown dropdown-inline">
+                     <a href="#" class="btn btn-default btn-pill btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="flaticon2-soft-icons"></i>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right" style="">
+                        <ul class="kt-nav">
+                           <li class="kt-nav__item">
+                              <a href="#" data-badge="{{badge.id}}" id="badgeAccept" data-uri="accept" class="kt-nav__link">
+                              <i class="kt-nav__link-icon flaticon2-graph-1"></i>
+                              <span class="kt-nav__link-text">Accept</span>
+                              </a>
+                           </li>
+                           <li class="kt-nav__item">
+                              <a href="#" data-badge="{{badge.id}}" id="badgeDecline" data-uri="decline" class="kt-nav__link">
+                              <i class="kt-nav__link-icon flaticon2-graph-1"></i>
+                              <span class="kt-nav__link-text">Decline</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="kt-portlet__body">
+            <center><img src="{{site.cpath}}/c_images/album1584/{{badge.badge_imaging}}"></center>
+         </div>
+      </div>
+   </div>
+   {% endfor %}
+</div>
+{% endblock %}

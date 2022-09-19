@@ -1,0 +1,202 @@
+{% extends "Admin/base.html" %}
+
+{% block page %}rarevalue{% endblock %}
+{% block jsfile %}rarevalue{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-xl-12">
+     <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+           <div class="kt-portlet__head-label">
+              <span class="kt-portlet__head-icon">
+              <i class="kt-font-brand flaticon2-user"></i>
+              </span>
+              <h3 class="kt-portlet__head-title">
+                Rare Value Pages
+              </h3>
+           </div>
+           <div class="kt-portlet__head-toolbar">
+              <div class="kt-portlet__head-wrapper">
+                 <div class="col-md-8 kt-margin-b-20-tablet-and-mobile">
+                    <div class="kt-input-icon kt-input-icon--left">
+                       <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                       <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                       <span><i class="la la-search"></i></span>
+                       </span>
+                    </div>
+                 </div>
+                   <div class="dropdown dropdown-inline">
+                            <button type="button" class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="flaticon-more-1"></i>
+                            </button>
+
+                            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(110px, 38px, 0px);">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__section kt-nav__section--first">
+                                        <span class="kt-nav__section-text">Actions</span>
+                                    </li>
+
+                                    <li class="kt-nav__item">
+                                        <a class="kt-nav__link addPage" data-toggle="modal" data-target="#editPageModal">
+                                            <i class="kt-nav__link-icon flaticon2-plus"></i>
+                                            <span class="kt-nav__link-text" >Add page</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="kt-nav__item">
+                                        <a id="kt_datatable_rarevalue_reload" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-reload"></i>
+                                            <span class="kt-nav__link-text">Reload</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+						
+              </div>
+           </div>
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+           <!--begin: Datatable -->
+           <div id="kt_datatable_rarevalue"></div>
+           <!--end: Datatable -->
+        </div>
+     </div>
+	 
+	 
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-12">
+  
+	 <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+           <div class="kt-portlet__head-label">
+              <span class="kt-portlet__head-icon">
+              <i class="kt-font-brand flaticon2-user"></i>
+              </span>
+              <h3 class="kt-portlet__head-title" id="items-title">
+                Last Rare Value Items
+              </h3>
+           </div>
+           <div class="kt-portlet__head-toolbar">
+              <div class="kt-portlet__head-wrapper">
+                 <div class="col-md-8 kt-margin-b-20-tablet-and-mobile">
+                    <div class="kt-input-icon kt-input-icon--left">
+                       <input type="text" class="form-control" placeholder="Search..." id="SearchItems">
+                       <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                       <span><i class="la la-search"></i></span>
+                       </span>
+                    </div>
+                 </div>
+                   <div class="dropdown dropdown-inline">
+                            <button type="button" class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="flaticon-more-1"></i>
+                            </button>
+
+                            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(110px, 38px, 0px);">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__section kt-nav__section--first">
+                                        <span class="kt-nav__section-text">Actions</span>
+                                    </li>
+
+                                    <li class="kt-nav__item">
+                                        <a class="kt-nav__link addItem" data-toggle="modal" data-target="#editItemModal">
+                                            <i class="kt-nav__link-icon flaticon2-plus"></i>
+                                            <span class="kt-nav__link-text" >Add item</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="kt-nav__item">
+                                        <a id="kt_datatable_rarevalueitems_reload" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-reload"></i>
+                                            <span class="kt-nav__link-text">Reload</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+						
+              </div>
+           </div>
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit">
+           <!--begin: Datatable -->
+           <div id="kt_datatable_rarevalueitems"></div>
+           <!--end: Datatable -->
+        </div>
+     </div>
+  </div>
+</div>
+<div class="modal fade" id="editPageModal" tabindex="-1" role="dialog" aria-labelledby="editPageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPageModalLabel">Edit Page</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="pageId" class="form-control-label">Id:</label>
+                        <input type="text" class="form-control" id="epageId" name="pageId">
+						<label for="Name" class="form-control-label">Name:</label>
+                        <input type="text" class="form-control" id="ePageName" name="name">
+						<label for="Desc" class="form-control-label">Description:</label>
+                        <input type="text" class="form-control" id="ePageDesc" name="description">
+						<label for="Thumbnail" class="form-control-label">Thumbnail:</label>
+                        <input type="text" class="form-control" id="ePageThumb" name="thumbnail">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary editPage">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-titles" id="editPageModalLabel">Edit Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="pageId" class="form-control-label">Page Id:</label>
+                        <input type="text" class="form-control" id="eparentId" name="itemparentid">
+						<label for="Name" class="form-control-label">Name:</label>
+                        <input type="text" class="form-control" id="eItemName" name="itemname">
+						<label for="itembase" class="form-control-label">Item Base Id:</label>
+                        <input type="text" class="form-control" id="eItemId" name="itembase">
+						<label for="credits" class="form-control-label">Cost Credits:</label>
+                        <input type="text" class="form-control" id="eItemCredits" name="itemcredits">
+						<label for="points" class="form-control-label">Cost Points:</label>
+                        <input type="text" class="form-control" id="eItemPoints" name="itempoints">
+						<label for="type" class="form-control-label">Points Type:</label>
+                        <input type="text" class="form-control" id="eItemType" name="itemtype">
+						<label for="image" class="form-control-label">Image:</label>
+                        <input type="text" class="form-control" id="eImageItem" name="itemimage">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary editItem">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

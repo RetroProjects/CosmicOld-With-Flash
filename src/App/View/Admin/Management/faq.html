@@ -1,0 +1,228 @@
+{% extends "Admin/base.html" %}
+
+{% block page %}FAQ Management{% endblock %}
+{% block jsfile %}faq{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-xl-12" id="editFaq" style="display: none">
+        <div class="kt-portlet">
+            <form method="post" action="faq/add">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <span class="kt-portlet__head-icon">
+                            <i class="flaticon2-graph"></i>
+                        </span>
+
+                        <h3 class="kt-portlet__head-title titleFaq">
+                            Edit FAQ
+                        </h3>
+                    </div>
+                    <div class="kt-subheader__wrapper kt-margin-t-10">
+                       <a id="goBack" class="btn btn-clean btn-icon-sm" style="">
+                       <i class="la la-long-arrow-left"></i>Back
+                       </a>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" name="title">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select class="form-control" name="category" id="category"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Story</label>
+                        <textarea name="story" id="story" style="font-size: 7px;"></textarea>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 m--valign-middle">
+                            Action:
+                        </div>
+
+                        <div class="col-lg-6 kt-align-right">
+                            <input type="hidden" name="faqId">
+                            <button type="submit" class="btn btn-brand addFaq">Edit FAQ</button>
+                            <span class="kt-margin-left-10">or <a id="goBack" class="kt-link kt-font-bold">Cancel</a></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-xl-12" id="categoryList" style="display: none">
+        <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+            <div class="kt-portlet__head kt-portlet__head--lg">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="kt-font-brand flaticon2-user"></i>
+                    </span>
+
+                    <h3 class="kt-portlet__head-title">
+                        Category Management
+                    </h3>
+                </div>
+
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-input-icon kt-input-icon--left">
+                            <a id="goBackCat" class="btn btn-clean btn-icon-sm">
+                                <i class="la la-long-arrow-left"></i>
+                                Back
+                            </a>
+                        </div>
+
+                        <div class="dropdown dropdown-inline">
+                            <button type="button" class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="flaticon-more-1"></i>
+                            </button>
+
+                            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(110px, 38px, 0px);">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__section kt-nav__section--first">
+                                        <span class="kt-nav__section-text">Action</span>
+                                    </li>
+
+                                    <li class="kt-nav__item">
+                                        <a data-toggle="modal" data-target="#addCategoryModal" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-plus"></i>
+                                            <span class="kt-nav__link-text">Add Category</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kt-portlet__body kt-portlet__body--fit">
+                <div id="kt_datatable_faq_category"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-12" id="faqTable">
+        <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+            <div class="kt-portlet__head kt-portlet__head--lg">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="kt-font-brand flaticon-interface-3"></i>
+                    </span>
+
+                    <h3 class="kt-portlet__head-title">
+                        FAQ Management
+                    </h3>
+                </div>
+
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-input-icon kt-input-icon--left">
+                            <input type="text" class="form-control" style="width: 200px" placeholder="Search..." id="faq_search">
+                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                <span><i class="la la-search"></i></span>
+                            </span>
+                        </div>
+
+                        <div class="dropdown dropdown-inline">
+                            <button type="button" class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="flaticon-more-1"></i>
+                            </button>
+
+                            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(110px, 38px, 0px);">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__section kt-nav__section--first">
+                                        <span class="kt-nav__section-text">Actions</span>
+                                    </li>
+
+                                    <li class="kt-nav__item">
+                                        <a class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-plus"></i>
+                                            <span class="kt-nav__link-text addFaqPage">Add FAQ</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="kt-nav__item">
+                                        <a class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-open-text-book"></i>
+                                            <span class="kt-nav__link-text getCategory">Categories</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kt-portlet__body kt-portlet__body--fit">
+                <div id="kt_datatable_faq"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="categoryName" class="form-control-label">Name:</label>
+                        <input type="text" class="form-control" name="categoryName">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary addCategory">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="categoryName" class="form-control-label">Name:</label>
+                        <input type="text" class="form-control" name="editCategoryName">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary editCategory">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.10.3/tinymce.min.js"></script>
+{% endblock %}

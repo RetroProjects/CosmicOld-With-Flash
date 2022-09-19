@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{locale.title_header}}</h1>
+        {{locale.decs_header}}
+    </div>
+</header>
+        <div class="page-content">
+            <div class="left-side">
+                {% include "Shop/Marketplace/nav.html" %}
+                <aside class="default-section" style="margin-top: 50px;">
+                  
+                    <div class="aside-title-content">My salable items</div>
+                    <div class="aside-desc-content">Here you will find all items from your inventory that can be sold</div>
+                  
+                    <div class="aside-content">
+                        {% for item in my_items %}
+                        {% if item.count > 0 %}
+                        <div class="items pixelated sell-item" data-id="{{item.item_id}}" data-image="{{item.catalog_name|replace({'*': "_"})}}" style="position: relative; background: url({{site.cpath}}/meubels/{{item.catalog_name|replace({'*': "_"})}}_icon.png) center no-repeat #f1f1f1;">
+                            {% if item.count > 1 %}
+                            <div class="notification-bar">
+                                <div class="count">
+                                    {{item.count}}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </aside>
+            </div>   
+          
+            <div class="right-side" style="margin-top: 50px;">
+                 <article class="default-section">
+                    <div class="aside-title-content">Is being sale</div>
+                    <div class="aside-desc-content">Test</div>
+                    <div class="aside-content">
+
+                        {% for item in my_sales %}
+                          <div class="tooltip">                         
+                              <div class="items pixelated" style="position: relative; background: url({{site.cpath}}/meubels/{{item.catalog_name|replace({'*': "_"})}}_icon.png) center no-repeat #f1f1f1;"></div>
+                          <span class="tooltiptext">Expire {{item.timestamp_expire|time_diff}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+        </div>
+{% endblock %}

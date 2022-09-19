@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+<div class="page-content">
+  
+     <!-- jquery data -->
+    <input type="hidden" name="totalpages" value="{% if forums.total == 0 %}1{% else %}{{forums.total}}{% endif %}">
+    <input type="hidden" name="currentpage" value="{{currentpage}}">
+    <input type="hidden" name="page_url" value="/guilds/{{forums.id}}-{{forums.slug}}">
+    <!-- end jquery data -->
+  
+    <div class="aside-toolbar-content">
+        <a href="/guilds">Home</a> - {{forums.name}}
+    </div>
+  
+    <div class="aside-toolbar-content">
+        {% if forums.post_threads != false %}
+        <div style="float: left; margin-top: 8px">
+            <button class="btn btn-success pull-left new-thread">{{locale.category_new_topic}}</button>
+            <button class="btn btn-success pull-left redo-reply" style="display: none">{{locale.category_back}}</button>
+        </div>
+        {% endif %}
+        <ul id="pagination" class="pagination"></ul>
+    </div>
+  
+    {% if forums.topic is not empty %}
+    <article id="forum-category" class="default-section">
+        <div class="aside-content">
+                <table class="default-table ranking-content" style="padding-top:10px">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th colspan="1">{{locale.category_topics}}</th>
+                        <th>{{locale.category_posts}}</th>
+                        <th>{{locale.category_latest_reacts}}</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for topic in forums.topic %}
+                    <tr {% if topic.pinned == 1 %}style="background: #dff0d8;"{% endif %}>
+                        <td><img src="{{site.fpath}}?figure={{topic.author.look}}&gesture=sml&headonly=1" alt="{{topic.author.username}}" class="pixelated"></td>
+                        <td>
+                            {% if topic.pinned == 1 %}<img src="/assets/images/web/pages/forum/sticky_icon.gif" data-toggle="tooltip" title="Dit topic is een sticky">{% endif %}
+                            {% if topic.locked == 1 %}<img src="/assets/images/web/pages/forum/locked_icon.gif" data-toggle="tooltip" title="Dit topic is een sticky">{% endif %}
+                            <a href="/guilds/{{topic.guild_id}}/thread/{{topic.id}}-{{topic.slug}}" data-id="{{topic.id}}" class="topicview">{{topic.subject}}</a><br />
+                            {{locale.category_topic_by}} <a href="/profile/{{topic.author.username}}">{{topic.author.username}}</a>, {{topic.created_at}}
+                        </td>
+                        <td class="count">{{topic.totalposts}}</td>
+                        <td>
+                            {% if topic.latest_post is empty %}
+                                {{locale.category_no_reacts}}
+                            {% else %}
+                                {{locale.category_latest_react_by}} <a href="/profile/{{topic.latest_post.author.username}}">{{topic.latest_post.author.username}}</a>,<br />
+                                {{topic.latest_post.created_at}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </article>
+    {% endif %}
+
+    <article id="thread-content" class="default-section" style="display: none">
+        <div class="aside-title-content">{{locale.category_create_topic}}</div>
+        <div class="aside-content">
+            <form action="guilds/post/category/create" method="post">
+                <div class="row space-bottom">
+                    <h5>{{locale.category_subject}}</h5>
+                    <input type="text" name="title" class="rounded-input blue-active">
+                </div>
+                <div class="row space-bottom">
+                    <h5>{{locale.category_description}}</h5>
+                    <textarea name="message" id="editor" class="rounded-textarea blue-active"></textarea>
+                </div>
+                <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                <input type="hidden" name="guild_id" value="{{forums.id}}" />
+                <p style="text-align: center; margin-top: 30px;"><button type="submit" class="rounded-button blue">{{locale.category_create_button}}</button> {{locale.category_or}} <a href="#" id="redo-reply">{{locale.category_cancel}}</a></p>
+            </form>
+        </div>
+    </article>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "Admin/base.html" %}
+
+{% block jsfile %}tools{% endblock %}
+
+{% block body %}
+
+{% if data.hotelranks is not defined %}
+{% set disabled = 'readonly="readonly"' %}
+{% endif %}
+    {% include 'Admin/Management/tools.html' %}
+{% endblock %}

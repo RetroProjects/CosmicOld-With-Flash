@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% set nav = "preferences" %}
+{% block body %}
+        <div class="page-content">
+            <article class="default-section">
+
+                {% include "Settings/panel.html" %}
+
+                <h3 class="aside-title">{{locale.title}}</h3>
+                <form action="settings/preferences/validate" method="post">
+                    <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                    <label class="switch-label" for="block_following-target">
+                        <span class="switch-container rounded-radio purple">
+                            <input class="settings" type="checkbox" data-id="block_following" id="block_following-target" {% if data.block_following == 1 %}checked{% endif %}>
+                            <span class="switch-button"></span>
+                        </span>
+                        <h4 class="label-title">{{locale.follow_title}}</h4>
+                        <span class="label-description">{{locale.follow_label}}</span>
+                    </label>
+
+                    <label class="switch-label" for="block_friendrequests-target">
+                        <span class="switch-container rounded-radio purple">
+                            <input class="settings" type="checkbox" data-id="block_friendrequests" id="block_friendrequests-target" {% if data.block_friendrequests == 1 %}checked{% endif %}>
+                            <span class="switch-button"></span>
+                        </span>
+                        <h4 class="label-title">{{locale.friends_title}}</h4>
+                        <span class="label-description">{{locale.friends_label}}</span>
+                    </label>
+                 <label class="switch-label" for="block_roominvites-target">
+                        <span class="switch-container rounded-radio purple">
+                            <input class="settings" type="checkbox" data-id="block_roominvites" id="block_roominvites-target" {% if data.block_roominvites == 1 %}checked{% endif %}>
+                            <span class="switch-button"></span>
+                        </span>
+                        <h4 class="label-title">{{locale.room_title}}</h4>
+                        <span class="label-description">{{locale.room_label}}</span>
+                    </label>
+                    <label class="switch-label" for="block_alerts-target">
+                        <span class="switch-container rounded-radio purple">
+                            <input class="settings" type="checkbox" data-id="block_alerts" id="block_alerts-target" {% if data.block_alerts == 1 %}checked{% endif %}>
+                            <span class="switch-button"></span>
+                        </span>
+                        <h4 class="label-title">{{locale.hotelalerts_title}}</h4>
+                        <span class="label-description">{{locale.hotelalerts_label}}</span>
+                    </label>
+                    <label class="switch-label" for="old_chat-target">
+                        <span class="switch-container rounded-radio purple">
+                            <input class="settings" type="checkbox" data-id="old_chat" id="old_chat-target" {% if data.old_chat == 1 %}checked{% endif %}>
+                            <span class="switch-button"></span>
+                        </span>
+                        <h4 class="label-title">{{locale.chat_title}}</h4>
+                        <span class="label-description">{{locale.chat_label}}</span>
+                    </label>
+                    <label class="switch-label" for="themeswitch-target">
+                        <span class="switch-container rounded-radio purple">
+                            <input class="settings" type="checkbox" data-id="themeswitch" id="themeswitch-target" {% if player.template == "dark" %}checked{% endif %}>
+                            <span class="switch-button"></span>
+                        </span>
+                        <h4 class="label-title">Would you like to use dark theme?</h4>
+                        <span class="label-description"></span>
+                    </label>
+                </form>
+            </article>
+        </div>
+{% endblock %}
+

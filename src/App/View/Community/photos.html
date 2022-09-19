@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{locale.photos_by}} {{site.shortname}}'s</h1>
+        {{locale.photos_desc}} {{site.shortname}}'s.
+    </div>
+</header>
+
+<div class="page-content">
+    <div class="photos-container">
+        {% for photo in data %}
+        <div class="photo-container">
+            <div class="photo-content">
+                <a href="{{photo.url}}" class="photo-picture" target="_blank" style="background-image: url({{photo.url}});" data-id="{{photo.id}}" data-title="{{photo.timestamp|date("d-m-Y")}} {{locale.by}} {{photo.author}}"></a>
+                <a href="#" class="photo-meta flex-container flex-vertical-center">
+                    <div class="photo-meta-left-side"><img src="{{site.fpath}}?figure={{photo.figure}}&gesture=sml&headonly=1" alt="{{photo.author}}" class="pixelated"></div>
+                    <div class="photo-meta-right-side">
+                        <div class="creator-name">{{photo.author}}</div>
+                        <div class="published-date">{{photo.timestamp|date("d-m-Y")}}</div>
+                        <span class="likes-count fc-like" data-id="{{photo.id}}">{{photo.likes}}</span> <i class="fa fa-heart" data-id="{{photo.id}}" style="color: #D67979;"></i></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="load-more-button">
+        <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+        <button class="rounded-button">{{locale.load_more}}</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <header class="page-header flex-container flex-vertical-center">
+            <div class="page-header-content">
+                <h1>{{locale.open_ticket}}</h1>
+            </div>
+        </header>
+  
+        <div class="page-content">
+            {% if banned_reason %}
+            <div class="alert">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              <b>You have been banned!</b> <br />
+              Reason: {{banned_reason.ban_reason}} <br />
+              Expire: {{ banned_reason.ban_expire|date }}   
+            </div>
+            {% endif %}
+            <article class="default-section new-request-container">
+                <div class="aside-title-content">{{locale.title}}</div>
+                <div class="aside-content">  
+                <form action="help/requests/create" method="post">
+                    <div class="row space-bottom">
+                        <h5>{{locale.subject}}</h5>
+                        <input type="text" name="subject" class="rounded-input blue-active">
+                    </div>
+                    <div class="row space-bottom">
+                        <h5>{{locale.description}}</h5>
+                        <textarea name="message" class="rounded-textarea blue-active" required></textarea>
+                    </div>
+                        <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                    <p style="text-align: center; margin-top: 30px;"><button type="submit" class="rounded-button blue">{{locale.open_ticket}}</button></p>
+                </form>
+              </div>
+            </article>
+        </div>
+{% endblock %}

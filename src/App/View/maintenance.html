@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{site.shortname}} - Maintenance</title>
+    <script>
+      var Site = {
+          name: "{{site.sitename}}",
+          domain: "{{domain}}",
+          url: ""
+      };
+      var Configuration = {
+          revision: "{{revision}}9",
+          cache: "1a7010799aca23"
+      };
+    </script>
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/web.{% if player %}{{player.template}}{% else %}{% if template %}{{template}}{% else %}light{% endif %}{% endif %}.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/fonts.css">
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .maintenance-container {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 1000;
+            background: rgba(5, 5, 5,0.65);
+        }
+        .landing-view {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: #4D9EDE;
+            filter: grayscale(1);
+            /*background-size: auto 100%;*/
+        }
+        .landing-view .bg-left {
+            background-color: #5EBFFF;
+            width: 331px;
+            position: absolute;
+            height: 100%;
+            background-image: url(assets/images/t1r0WIz.png);
+            background-position: left calc(100% + 273px) bottom -297px;
+            animation-iteration-count:infinite;
+            animation-name:cloudLeft;
+            animation-duration:31s;
+            animation-timing-function: linear;
+            filter: grayscale(1);
+        }
+        .landing-view .bg-right {
+            background-color: #4D9EDE;
+            width: calc(100% - 331px);
+            position: absolute;
+            height: 100%;
+            right: 0px;
+            background-image: url(assets/images/hJ0BFbW.png);
+            background-repeat: no-repeat;
+            background-position: left -330px bottom -1173px;
+            animation-iteration-count:infinite;
+            animation-name:cloudRight;
+            animation-duration:31s;
+            animation-timing-function: linear;
+            filter: grayscale(1);
+        }
+           @KEYframes  cloudLeft {
+            from {
+                background-position: left calc(100% + 273px) bottom -297px;
+            }
+            to {
+                background-position: left 0 bottom 5px;
+            }
+        }
+           @KEYframes  cloudRight {
+            from {
+                background-position: left -934px bottom -871px;
+            }
+            to {
+                background-position: left -330px bottom -1173px;
+            }
+        }
+        .landing-view .left {
+            height: 1260px;
+            width: 1260px;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            background-image: url(assets/images/0IGo8Y1.png);
+            background-position: bottom left;
+            background-repeat: no-repeat;
+            animation-iteration-count:1;
+            animation-name:slideUp;
+            animation-duration:1.5s;
+            filter: grayscale(1);
+        }
+        .landing-view .right {
+            height: 463px;
+            width: 526px;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            background-position: bottom right;
+            background-repeat: no-repeat;
+            filter: grayscale(1);
+        }
+        .landing-view .drape {
+            height: 200px;
+            width: 145px;
+            position: absolute;
+            top: 0px;
+            left: 100px;
+            background-image: url(assets/images/reception_logo_drape.png);
+            background-position: bottom left;
+            background-repeat: no-repeat;
+            animation-iteration-count:1;
+            animation-name:slideDown;
+            animation-duration:1.5s;
+            filter: grayscale(1);
+        }
+
+        .maintenance-break {
+            -webkit-transform: rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            -moz-transform: rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            -ms-transform: rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            -o-transform: rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            transform:  rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            color: rgba(255,255,255,0.4);
+            font-size: 130px;
+            text-transform: uppercase;
+            position: absolute;
+            bottom: 390px;
+            left: 120px;
+            font-family: "Arial Black", sans-serif;
+        }
+        .maintenance-break-bottom {
+            -webkit-transform: rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            -moz-transform: rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            -ms-transform: rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            -o-transform: rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            transform:  rotateX(-19deg) rotateY(-52deg) skewX(0deg);
+            color: rgba(255,255,255,0.4);
+            font-size: 90px;
+            text-transform: uppercase;
+            position: absolute;
+            bottom: 330px;
+            left: 200px;
+            font-family: "Arial Black", sans-serif;
+        }
+
+           @KEYframes  slideDown{ 0%{top:-100%}to {top:0} }
+           @KEYframes  slideUp{0%{bottom:-100%}to{bottom:0}}
+           @KEYframes  slideRight{0%{right:-100%}to{right:0}}
+           @KEYframes  slideLeft{0%{left:-100%}to{left:0}}
+      
+      .button {
+          padding: 14px;
+          display: block;
+          float: right;
+          color: #fff;
+          background: rgb(68 68 68 / 65);
+        }
+        
+        .aside-title {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+          padding-bottom: 10px;
+          margin-bottom: 25px;
+          font-family: tahoma;
+          font-size: 18px;
+       }
+    </style>
+</head>
+<body>
+<div id="login-dialog" class="login-popup zoom-anim-dialog mfp-hide">
+  <h3 class="aside-title">Log in {{site.sitename}}</h3>
+  <div class="login-form">
+      <label for="login-username-input-target" class="username-input">
+          <input type="text" name="username" class="rounded-input blue-active" id="login-username-input-target"
+              placeholder="{{site.shortname}}{{locale_base.login_name}}..." required>
+          <i class="flaticon-user-1"></i>
+      </label>
+      <label for="login-password-input-target" class="password-input">
+          <input type="password" name="password" class="rounded-input blue-active"
+              id="login-password-input-target" placeholder="{{locale_base.login_password}}..." autocomplete="off"
+              required>
+          <i class="flaticon-padlock"></i>
+      </label>
+        <input type="hidden" name="csrftoken" value="{{csrf_token}}" />
+      <button type="submit" class="rounded-button blue plain" id="login-now">Log in</button>
+  </div>
+</div>
+<div class="notifications-container"></div>
+<div class="maintenance-container">
+    <a class="button login-dialog-button">
+      <i class="fas fa-sign-in-alt"></i>
+    </a>
+    <div class="maintenance-break">
+        Maintenance!
+    </div>
+    <div class="maintenance-break-bottom">
+        Coming soon...
+    </div>
+</div>
+<div class="landing-view">
+    <div class="bg-left">
+
+    </div>
+    <div class="bg-right">
+
+    </div>
+    <div class="left">
+
+    </div>
+    <div class="right">
+
+    </div>
+    <div class="drape">
+
+    </div>
+</div>
+
+</body>
+</html>
+<body>
+    
+<script src="/assets/js/js.cookie.js"></script>
+<script src="/assets/js/jquery.history.js"></script>
+<script src="/assets/js/jquery.magnific-popup.js"></script>
+<script src="/assets/js/functions.js"></script>
+<script src="/assets/js/web/loading.js?v=5"></script>
+<script src="/assets/js/jquery.wysibb.js"></script>
+
+  
+<script>
+ $("#login-now").unbind().click(function () {
+
+ });
+ $(".login-dialog-button").unbind().click(function () {
+      $.magnificPopup.open({
+          items: {
+              type: "inline",
+              src: "#login-dialog"
+          },
+          callbacks: {
+              open: function () {
+                  $(".rounded-input").unbind().keypress(function (e) {
+                      if (e.which == 13 || e.type === 'click') {
+                        
+                          var verification_data = {
+                              username: $(".login-form [name=username]").val(),
+                              password: $(".login-form [name=password]").val(),
+                              csrftoken: $(".login-form [name=csrftoken]").val(),
+                          };
+                          Web.ajax_manager.post("/auth/login/request", verification_data, function(result) {
+
+                              if(result.status == "pincode_required")
+                              {
+                                  setTimeout(function(){ 
+                                  Web.dialog_manager.create("confirm", Locale.web_fill_pincode, Locale.web_twostep, null, "pincode", function (result)
+                                  {
+                                      verification_data.pincode = result.toString();
+                                      Web.ajax_manager.post("/auth/login/request", verification_data);
+
+                                      $.magnificPopup.close();
+                                  });
+                                  }, 500);
+                              }
+                          });
+                          $.magnificPopup.close();
+                
+                      }
+                  });
+              }
+          },
+          mainClass: "my-mfp-zoom-in"
+      });
+ });
+</script>
+</html>

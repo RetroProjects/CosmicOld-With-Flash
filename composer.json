@@ -1,0 +1,29 @@
+{
+    "require": {
+        "php": ">=7.4.6",
+        "twig/twig": "~2.0",
+        "twig/extensions": "^1.5",
+        "rakit/validation": "^1.2",
+        "jenssegers/date": "^3.3.1",
+        "ext-curl": "*",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-gd": "*",
+        "geoip2/geoip2":"~2.0",
+        "sonata-project/google-authenticator": "^2.2",
+        "symfony/dotenv": "^6.0",
+        "calcinai/php-imagick": "^0.1.2",
+        "pecee/simple-router": "^4.3.5.0",
+        "paypal/paypal-checkout-sdk": "1.0.2",
+        "originphp/socket": "^2.0",
+        "pecee/pixie": "^4.15",
+        "symfony/mailer": "^6.0",
+        "symfony/google-mailer": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cosmic\\": "src/"
+        }
+    }
+}

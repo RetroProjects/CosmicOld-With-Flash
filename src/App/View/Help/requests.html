@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{site.shortname}} {{locale.title}}</h1>
+        {{locale.desc}}
+    </div>
+</header>
+<div class="page-content">
+   {% if data.requests is not empty %}
+   <article class="default-section">
+      <div class="aside-title-content">{% if data.requests.status == "closed" %}[{{locale.request_closed}}]{% endif %} {{data.requests.subject}}</div>
+          <div class="forum-post">
+             <div class="forum-author">
+                <div class="fpost-user">
+                   <strong>
+                      <div class="user-style"><a href="/profile/{{data.requests.author.username}}">{{data.requests.author.username}}</a></div>
+                   </strong>
+                </div>
+                <div class="hidden-sm hidden-xs">
+                   <div class="forum-post-avatar">
+                      <div style="background: url({{site.fpath}}?figure={{data.requests.author.look}}&amp;head_direction=3&amp;headonly=1) no-repeat center; width: 48px; height: 62px;"></div>
+                   </div>
+                </div>
+                <div class="hidden-sm hidden-xs" style="text-align: left;"><strong>{{locale.request_on}}</strong> {{data.requests.timestamp|date("d-M H:i")}}</div>
+                <div class="hidden-sm hidden-xs" style="text-align: left;"><strong>{{locale.request_ticket_amount}}</strong> {{data.requests.ctickets}}</div>
+             </div>
+             <div class="forum-content">
+                <div class="forum-body">
+                   <div class="content-body">
+                      {{data.requests.message}}
+                   </div>
+                </div>
+             </div>
+     </div>
+   </article>
+   {% for reaction in data.requests.reactions %}
+   <article class="default-section">
+      <div class="aside-title-content">{{locale.request_react_on}} {{data.requests.subject}}</div>
+      <div class="aside-content">
+          <div class="forum-post">
+             <div class="forum-author">
+                <div class="fpost-user">
+                   <strong>
+                      <div class="user-style"><a href="/profile/{{reaction.username}}">{{reaction.author.username}}</a></div>
+                   </strong>
+                </div>
+                <div class="hidden-sm hidden-xs">
+                   <div class="forum-post-avatar">
+                      <div style="background: url({{site.fpath}}?figure={{reaction.author.look}}&amp;head_direction=3&amp;headonly=1) no-repeat center; width: 48px; height: 62px;"></div>
+                   </div>
+                </div>
+                <div class="hidden-sm hidden-xs" style="text-align: left;"><strong>{{locale.request_on}}</strong> {{reaction.timestamp|date("d-M H:i")}}</div>
+                {% if reaction.username == player.username %}
+                   <div class="hidden-sm hidden-xs" style="text-align: left;"><strong>{{locale.request_ticket_amount}}</strong> {{data.requests.ctickets}}</div>
+                {% endif %}
+             </div>
+             <div class="forum-content">
+                <div class="forum-body">
+                   <div class="content-body">
+                      {{reaction.message|raw}}
+                   </div>
+                </div>
+             </div>
+          </div>
+        </div>
+   </article>
+   {% endfor %}
+
+   {% if data.requests.status != "closed" %}
+      {% if data.requests.latest.practitioner_id != player.id and data.requests.latest != null  %}
+      <article class="default-section">
+          <div class="aside-title-content">{{locale.request_react}}</div>
+          <div class="aside-content">
+              <form action="help/requests/createpost" method="post">
+                <div class="row space-bottom">
+                   <h5>{{locale.request_description}}</h5>
+                   <textarea name="message" class="rounded-textarea blue-active"></textarea>
+                </div>
+                <input type="hidden" name="ticketid" value="{{data.requests.id}}" />
+                <p style="text-align: center; margin-top: 30px;"><button type="submit" class="rounded-button blue">{{locale.request_react_on_ticket}}</button></p>
+              </form>
+          </div>
+      </article>
+      {% endif %}
+   {% endif %}
+
+   {% else %}
+    {% if banned_reason %}
+    <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <b>You have been banned!</b> <br />
+    Reason: {{banned_reason.ban_reason}} <br />
+    Expire: {{ banned_reason.ban_expire|date }}   
+    </div>
+    {% endif %}
+   <article class="default-section">
+      <div class="aside-title-content">{{locale.request_contact}}</div>
+      <div class="aside-content">
+          {{locale.request_contact_help}}
+          <p style="text-align: center; margin-top: 30px;"><a href="/help/requests/new" class="rounded-button blue">{{locale.request_new_ticket}}</a></p>
+      </div>
+   </article>
+   {% endif %}
+
+   {% if data.tickets is not empty %}
+   <article class="default-section">
+      <table class="default-table" style="padding: 10px">
+         <thead>
+            <tr>
+               <th></th>
+               <th>{{locale.request_subject}}</th>
+               <th>{{locale.request_type}}</th>
+               <th>{{locale.request_status}}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for request in data.tickets %}
+            <tr>
+                <td><img src="{{site.fpath}}?figure={{player.look}}&gesture=sml&headonly=1" alt="{{user.username}}" class="pixelated"></td>
+                <td><a href="/help/requests/{{request.id}}/view">{{request.subject}}</a></td>
+                {% if request.status == "in_treatment" %}
+                    <td>{{locale.request_in_treatment}}</td>
+                {% elseif request.status == "open" %}
+                    <td>{{locale.request_open}}</td>
+                {% else %}
+                    <td>{{locale.request_closed}}</td>
+                {% endif %}
+                <td>{{request.timestamp|date("d-M H:i")}}</td>
+            </tr>
+            {% endfor %}
+            
+         </tbody>
+      </table>
+   </article>
+   {% endif %}
+</div>
+<style>
+   .forum-post-avatar {
+   width: 48px;
+   min-height: 70px;
+   background-position: center;
+   background-repeat: no-repeat;
+   margin: auto;
+   text-align: center;
+   position: relative;
+   }
+   .forum-body {
+   overflow: hidden;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+   -ms-word-break: break-all;
+   word-break: break-all;
+   word-break: break-word;
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+   }
+   .forum-title {
+   border-bottom: 1px solid #eee;
+   padding: 0px 5px 10px 5px;
+   margin-bottom: 10px;
+   }
+   .forum-tools {
+   border-top: 1px solid #eee;
+   margin-left: 150px;
+   padding: 10px 15px 10px 15px;
+   background: #F5F5F5;
+   }
+   .fpost-user {
+   padding: 5px;
+   font-weight: bold;
+   }
+   .forum-edit-box {
+   display: none;
+   border-top: 1px solid #eee;
+   margin-left: 150px;
+   padding: 10px 15px 10px 15px;
+   background: #F5F5F5;
+   }
+   .forum-content {
+   margin-left: 150px;
+   padding: 10px 20px 20px 20px;
+   background: #F5F5F5;
+   border-left: 1px solid #eee;
+   }
+   .forum-author {
+   float: left;
+   padding: 20px;
+   width: 150px;
+   height: 100%;
+   text-align: center;
+   background: white;
+   font-size: 12px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   }
+   .forum-post {
+   background: white;
+   width: 100%;
+   margin-bottom: 10px;
+   overflow: hidden;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+   -ms-word-break: break-all;
+   word-break: break-all;
+   word-break: break-word;
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.17), inset 0 0 0 0px rgba(0, 0, 0, 0.23);
+   }
+</style>
+{% endblock %}

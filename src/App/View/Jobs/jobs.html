@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="page-content job">
+    <div class="tabs-container">
+        <span class="tab selected">{{locale.title}}</span>
+        <a href="/jobs/my" class="tab">{{locale.applications}}</a>
+    </div>
+    <h2>{{locale.available_applications}}</h2>
+  
+    {% for job in jobs %}
+    <article class="default-section job-offer flex-container flex-vertical-center" style="padding: 15px">
+        <div class="offer-description">
+            <h4>{{job.job}}</h4>
+            {{job.small_description}}
+        </div>
+        <div class="offer-button">
+            {% if job.apply %}
+                <img src="/assets/images/web/pages/jobs/accepted.png" width="46">
+            {% else %}
+                <a href="/jobs/{{job.id}}/apply" class="rounded-button brown">{{locale.react}}</a>
+            {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}

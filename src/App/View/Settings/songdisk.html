@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <div class="page-content">
+            <article class="default-section">
+
+                {% include "Settings/panel.html" %}
+
+                <h3 class="aside-title">CD gravés</h3>
+                <div class="songdisks-container">
+                    <div class="songdisk-container">
+                        <div class="songdisk-content add-song cant-select">
+                            <div class="songdisk-icon pixelated disk0 flex-container flex-vertical-center flex-horizontal-center"></div>
+                            <div class="songdisk-name">Nouveau CD</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+{% endblock %}

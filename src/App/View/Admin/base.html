@@ -1,0 +1,293 @@
+{% if player %}
+{% extends "permissions.html" %}
+{% set set_permission = permission %}
+{% block housekeeping %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+   <meta charset="utf-8"/>
+   <title>{% if block('page') is defined  %} {{block('page')}} | {{site.sitename}}{% else %}Housekeeping{% endif %}</title>
+   <meta name="description" content="Content width content">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <style>
+     html {overflow-y: scroll;}
+     .toast {
+       opacity: 1 !important;
+     }
+
+     #toast-container > div {
+       opacity: 1 !important;
+     }
+
+     .modal-open{
+       margin-right:0px !important;
+     }
+   </style>
+
+   <link href="/assets/admin/vendors/css/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/bootstrap-select.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/select2.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/toastr.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/line-awesome.css?v=8" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/flaticon.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/flaticon2.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/fontawesome.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/vendors.bundle.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/style.bundle.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/css/wizard.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/admin/vendors/css/jstree.bundle.css" rel="stylesheet" type="text/css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script>
+    var Site = {
+        name: "{{site.sitename}}",
+        url: "{{site.domain}}",
+        game_url: "{{site.cpath}}",
+        figure_url: "{{site.fpath}}"
+    }
+    
+    {% if player is empty %}
+    var User = {
+        id: 0,
+        username: "",
+        online: 0,
+        is_logged: false,
+        is_staff: false
+    }
+    {% else %}var User = {
+        id: {{player.id}},
+        username: "{{player.username}}",
+        is_logged: true,
+        ticket: "{{player.auth_ticket}}",
+        is_staff: {% if player.rank >= 3 %}true{% else %}false{% endif %}
+
+    };
+    {% endif %}
+
+    var Configuration = {
+        {% if publickey is not empty %}recaptcha_public: "{{publickey}}",{% endif %}
+        revision: "{{revision}}2213",
+        cache: "AEEA19MN001C",
+    }
+    </script>
+  
+   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+</head>
+<body class="kt-page-content-white kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed">
+   <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+      <div class="kt-header-mobile__toolbar">
+         <button class="kt-header-mobile__toolbar-toggler kt-header-mobile__toolbar-toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+         <button class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more-1"></i></button>
+      </div>
+   </div>
+   <div class="kt-grid kt-grid--hor kt-grid--root">
+      <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+            <div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed "  data-ktheader-minimize="on" >
+               <div class="kt-container  kt-container--fluid ">
+                  <div class="kt-header__brand " id="kt_header_brand">Housekeeping</div>
+                  <div class="kt-header__topbar">
+                     <div class="kt-header__topbar-item kt-header__topbar-item--search dropdown"  id="kt_quick_search_toggle">
+                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg">
+                           <div class="kt-quick-search kt-quick-search--inline" id="kt_quick_search_inline">
+                              <form method="get" class="kt-quick-search__form">
+                                 <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>
+                                    <input type="text" class="form-control kt-quick-search__input" placeholder="Search...">
+                                    <div class="input-group-append"><span class="input-group-text"><i class="la la-close kt-quick-search__close"></i></span></div>
+                                 </div>
+                              </form>
+                              <div class="kt-quick-search__wrapper kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="kt-header__topbar-item kt-header__topbar-item--user">
+                        <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                           <span class="kt-header__topbar-welcome kt-visible-desktop">Welcome,</span>
+                           <span class="kt-header__topbar-username kt-visible-desktop">{{player.username}}</span>
+                           <span class="kt-header__topbar-icon kt-bg-brand kt-hidden"><b>{{player.username|slice(0,1)|upper}}</b></span>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
+                           <div class="kt-notification">
+                              <div class="kt-notification__custom kt-space-between">
+                                 <a href="#" class="btn btn-label btn-label-brand btn-sm btn-bold maintenance">Maintenance</a> 
+                                  <a href="#" class="btn btn-label btn-label-brand btn-sm btn-bold clearCache">Clear Cache</a>
+                             </div>
+                             <div class="kt-notification__custom kt-space-between">
+                                 <a href="/hotel" class="btn btn-label btn-label-brand btn-sm btn-bold">Enter hotel</a>
+                                 <a href="/logout" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign out</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
+               <div class="kt-container  kt-grid kt-grid--ver">
+                  <button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
+                  <div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
+                     {% include 'Admin/navbar.html' %}
+                  </div>
+                  <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+                     <div class="kt-container  kt-grid__item kt-grid__item--fluid" style="margin-top:30px">
+                        <div class="kt-portlet">
+                           <div class="kt-portlet__body  kt-portlet__body--fit">
+                              <div class="row row-no-padding row-col-separator-xl">
+                                 <div class="col-md-12 col-lg-6 col-xl-3">
+                                    <div class="kt-widget24">
+                                       <div class="kt-widget24__details">
+                                          <div class="kt-widget24__info">
+                                             <h4 class="kt-widget24__title">
+                                                Users online
+                                             </h4>
+                                             <span class="kt-widget24__desc">
+                                             Online counter
+                                             </span>
+                                          </div>
+                                          <span class="kt-widget24__stats kt-font-brand">
+                                             <a href="#" id="showOnlinePlayers">{{online_count}}</a>
+                                          </span>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-12 col-lg-6 col-xl-3">
+                                    <div class="kt-widget24">
+                                       <div class="kt-widget24__details">
+                                          <div class="kt-widget24__info">
+                                             <h4 class="kt-widget24__title">
+                                                Staff online
+                                             </h4>
+                                             <span class="kt-widget24__desc">
+                                             Click see who's online
+                                             </span>
+                                          </div>
+                                          <span class="kt-widget24__stats kt-font-warning">
+                                          {{staff_count}}
+                                          </span>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-12 col-lg-6 col-xl-3">
+                                    <div class="kt-widget24">
+                                       <div class="kt-widget24__details">
+                                          <div class="kt-widget24__info">
+                                             <h4 class="kt-widget24__title">
+                                                Helptool tickets
+                                             </h4>
+                                             <span class="kt-widget24__desc">
+                                             Help requests in hotel
+                                             </span>
+                                          </div>
+                                          <span class="kt-widget24__stats kt-font-danger">
+                                          {{helpticket_count|length}}
+                                          </span>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-12 col-lg-6 col-xl-3">
+                                    <div class="kt-widget24">
+                                       <div class="kt-widget24__details">
+                                          <div class="kt-widget24__info">
+                                             <h4 class="kt-widget24__title">
+                                                Hotel tickets
+                                             </h4>
+                                             <span class="kt-widget24__desc">
+                                             Help requests hotel
+                                             </span>
+                                          </div>
+                                          <span class="kt-widget24__stats kt-font-success">
+                                          {{hotel_ticketcount|length}}
+                                          </span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                           <div class="col-xl-12" id="onlinePlayers" style="display: none">
+                              <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+                                 <div class="kt-portlet__head kt-portlet__head--lg">
+                                    <div class="kt-portlet__head-label">
+                                     <span class="kt-portlet__head-icon">
+                                     <i class="kt-font-brand flaticon2-user"></i>
+                                     </span>
+                                       <h3 class="kt-portlet__head-title">
+                                          Online players
+                                       </h3>
+                                    </div>
+                                    <div class="kt-portlet__head-toolbar">
+                                       <div class="kt-portlet__head-wrapper">
+                                          <div class="col-md-8 kt-margin-b-20-tablet-and-mobile">
+                                             <div class="kt-input-icon kt-input-icon--left">
+                                                <input type="text" class="form-control" placeholder="Search..." id="searchOnlinePlayers">
+                                                <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                 <span><i class="la la-search"></i></span>
+                                                 </span>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-4 kt-tablet-and-mobile">
+                                             <div class="kt-form__group kt-form__group--inline">
+                                                <div class="kt-form__label">
+                                                   <button class="btn btn-secondary" type="button" id="kt_datatable_online_reload">Reload</button>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="kt-portlet__body kt-portlet__body--fit">
+                                    <div id="kt_datatable_online_users"></div>
+                                 </div>
+                           </div>
+                        </div>
+                        {% block body %} {% endblock %}
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="kt-footer kt-grid__item" id="kt_footer" kt-hidden-height="65" style="">
+               <div class="kt-container ">
+                  <div class="kt-footer__wrapper">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   {% include "Admin/modal.html" %}
+
+   <div id="kt_scrolltop" class="kt-scrolltop">
+      <i class="fa fa-arrow-up"></i>
+   </div>
+
+   <script>
+      var KTAppOptions = {"colors":{"state":{"brand":"#5d78ff","light":"#ffffff","dark":"#282a3c","primary":"#5867dd","success":"#34bfa3","info":"#36a3f7","warning":"#ffb822","danger":"#fd3995"},"base":{"label":["#c5cbe3","#a1a8c3","#3d4465","#3e4466"],"shape":["#f0f3ff","#d9dffa","#afb4d4","#646c9a"]}}};
+   </script>
+
+   <script src="/assets/admin/js/vendors.bundle.js" type="text/javascript"></script>
+   <script src="/assets/admin/js/scripts.bundle.js" type="text/javascript"></script>
+   <script src="/assets/admin/js/modal.js" type="text/javascript"></script>
+   <script src="/assets/admin/js/ion.rangeSlider.min.js" type="text/javascript"></script>
+   <script src="/assets/admin/js/jQuery.tagify.min.js?v=10" type="text/javascript"></script>
+   <script src="/assets/admin/js/pages/web.wizard.js" type="text/javascript"></script>
+   <script type="text/javascript" src="/assets/admin/js/jquery.uploadPreview.min.js"></script>
+    
+   <script>
+   {% for message in flash_messages %}
+     toastr["{{message.type}}"]("{{message.body}}")
+   {% endfor %}
+   </script>
+
+   {% if block('jsfile') is defined  %}
+   <script src="/assets/admin/js/pages/web.{{ block('jsfile')|lower }}.js?v={{cache_timestamp}}"></script>
+   {% endif %}
+   <script src="/assets/admin/js/jstree.bundle.js?v=10"></script>
+   <script src="/assets/admin/js/init.js?v={{cache_timestamp}}" type="text/javascript"></script>
+
+   <script>if (window.module) module = window.module;</script>
+</body>
+</html>
+{% endblock %}
+{% endif %}

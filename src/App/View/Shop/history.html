@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{locale.title}}</h1>
+        {{locale.desc}} {{site.shortname}} Hotel.
+    </div>
+</header>
+
+<div class="page-content">
+    <div class="left-side">
+        <article class="default-section">
+            <div class="aside-title-content">{{locale.buy_history}}</div>
+            <div class="aside-content">
+                {% if history is not empty %}
+                <table class="default-table">
+                    <thead>
+                        <tr>
+                            <th>{{locale.product}}</th>
+                            <th>{{locale.date}}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for row in history %}
+                        <tr>
+                            <td>{{row.data}}</td>
+                            <td>{{row.timestamp|date("d-m-Y - H:i")}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                {{locale.buy_history_empty}}
+                {% endif %}
+            </div>
+        </article>
+    </div>
+    <div class="right-side">
+        <aside class="default-section">
+            <div class="aside-title-content">{{locale.buy_club}}</div>
+            <div class="aside-content">
+                <p>{{locale.content_1}} {{locale.content_2}} <a href="/help/requests/new">{{locale.help_tool}}</a>.</p>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

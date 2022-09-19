@@ -1,0 +1,128 @@
+<div class="modal fade" id="actionModal" tabindex="-1" role="dialog" aria-labelledby="actionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="actionModalLabel">Action to</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                Loading...
+            </div>
+        </div>
+    </div>
+</div>
+
+ <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete one track, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                    <p class="debug-url"></p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger btn-ok" data-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalLabel">Alert User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="remote/alert">
+                    <label class="sr-only" for="inputUsername">Username</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                        </div>
+                        <input type="text" class="form-control" id="inputUsername" name="element" value="" placeholder="Username..." autocomplete="off" autofocus required>
+                    </div>
+                    <label class="sr-only" for="inputReason">Reason</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <select id="inputReason" name="reason" class="form-control" required>
+                            {% for alert in alert_messages %}
+                            <option value="{{alert.id}}">{{alert.title}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="sr-only" for="inputExtra">Extra</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <select id="inputExtra" name="action" class="form-control" required>
+                            <option value="0">None</option>
+                            <option value="1">Disconnect</option>
+                            <option value="2">Kick</option>
+                            <option value="3">Mute</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="object" value="alertuser" />
+                    <button type="submit" class="btn btn-primary mb-2">Alert</button>
+                    <button type="button" class="btn btn-secondary  mb-2" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="banModal" tabindex="-1" role="dialog" aria-labelledby="banModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="banModalLabel">Ban User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" action="remote/ban">
+                    <label class="sr-only" for="inputUsername">Username</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                        </div>
+                        <input type="text" class="form-control" id="inputUsername" name="element"  placeholder="Username..." autocomplete="off" autofocus required>
+                        <input type="hidden" name="object" value="banuser" />
+                    </div>
+					
+					<div class="input-group mb-2 mr-sm-2">
+                        <select id="inputReason" name="reason" class="form-control" required></select>
+                    </div>
+
+                    <label class="sr-only" for="inputTime">Time</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <select id="inputTime" name="expire" class="form-control" required></select>
+                    </div>
+
+                    <label class="sr-only" for="inputType">Type</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <select id="inputType" name="type" class="form-control" required>
+                            <option value="user">User</option>
+                            <option value="ip">IP</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Ban user</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

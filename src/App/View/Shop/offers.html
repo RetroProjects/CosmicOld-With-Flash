@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{site.shortname}} {{locale.store}}</h1> {{locale.desc}}
+    </div>
+</header>
+
+<div class="page-content shop-offer">
+    {% set token = random() %}
+    <input type="hidden" id="token" value="{{token}}">
+    <input type="hidden" id="offer_id" value="{{data.offer.offer_id}}">
+    <h2>
+        <a href="/shop" class="rounded-button">{{locale.back}}</a>
+        {{locale.buymethods}} - {{data.offer.amount}} {{data.offer.currency}} {{locale.for}} €{{data.offer.price}} {{locale.or_lower}}
+    </h2>
+    <div class="right-side" style="margin-bottom: 7px;">
+
+        <aside class="default-section">
+            <div class="aside-title-content">Wat is Mollie?</div>
+            <div class="aside-desc-content">En waarvoor wordt het gebruikt?</div>
+
+            <div class="aside-content">
+                Mollie is een payment service provider die betalingen voor onder andere webshops verwerkt. Je kunt Mollie zien als een tussenpersoon: wij zorgen ervoor dat jouw geld veilig van je bank naar de webshop gaat.
+                <br />
+            </div>
+        </aside>
+    </div>
+    <div class="left-side" style="margin-bottom: 7px;">
+
+        <aside class="default-section">
+            <div class="aside-title-content">Betaal gemakkelijk!</div>
+            <div class="aside-desc-content">Onze payment service's</div>
+
+            <div style="background-color: #f3f3f3;padding: 15px;width: 85px;height: 85px;margin-left: 20px;display: inline-block;">
+                <img src="//images.ctfassets.net/k4kk06v59kf0/7kB4Z9tfk4UYoquUmKsk0E/19ef254a6d480fc9fb3e979a970e488e/payPalLogo.svg" height="50" width="50" alt="PayPal">
+            </div>
+            <div style="background-color: #f3f3f3;padding: 15px;width: 85px;height: 85px;margin-left: 20px;display: inline-block;">
+                <img src="//images.ctfassets.net/k4kk06v59kf0/1KHoXkgus8iUmkuswua6w/97d4a41abf877fd2e1526cba07e64745/iDealLogo.svg" height="50" width="50" alt="iDeal">
+            </div>
+            <div style="background-color: #f3f3f3;padding: 15px;width: 85px;height: 85px;margin-left: 20px;display: inline-block;">
+                <img src="//images.ctfassets.net/k4kk06v59kf0/1SPMXqHMmIiiGEKWEGqoM4/b3c0b6577e0e20d2032e7421838b8f5b/maestroLogo.svg" height="50" width="50" alt="CreditCard">
+            </div>
+            <div style="background-color: #f3f3f3;padding: 15px;width: 85px;height: 85px;margin-left: 20px;display: inline-block;">
+                <img src="//images.ctfassets.net/k4kk06v59kf0/59VplSrJIAiEuGkSm8IUqq/5d834afe575dcce4cf566e8d14e19402/giroPayLogo.svg" height="50" width="50" alt="GiroPay">
+            </div>
+            <div style="background-color: #f3f3f3;padding: 15px;width: 85px;height: 85px;margin-left: 20px;display: inline-block;">
+                <img src="//images.ctfassets.net/k4kk06v59kf0/4OGyq3k1QIEg4gSgGoO088/82c04cf99cbfad97d92f6912d1d815b4/paySafeCardLogo.svg" height="50" width="50" alt="GiroPay">
+            </div>
+            <div style="background-color: #f3f3f3;padding: 15px;width: 85px;height: 85px;margin-left: 20px;display: inline-block;">
+                <img src="//images.ctfassets.net/k4kk06v59kf0/13N2cNPzGX2Z9YzIHRrnM5/7574d2d75a6cac9d961fef9caeacaa55/applePayNarrow_2.svg" height="50" width="50" alt="GiroPay">
+            </div>
+
+            <div class="aside-content" style="text-align: center">
+                <div class="payment-accept" style="padding-left: 10px;display:none">
+                    Je aankoopmunten zijn toegevoegd aan je account. Mocht er iets zijn misgegaan neem dan contact op via onze helptool. <br /><br />
+                    <img src="/assets/images/web/pages/shop/credits-success.png">
+                </div>
+                <div class="payment-decline" style="padding-left: 10px;display:none">
+                    De aankoop is geannuleerd. Lukt het niet om aankoop te doen? Neem dan contact op via onze helptool. <br /><br />
+                    <img src="/assets/images/web/pages/shop/credits-error.png">
+                </div>
+                <img class="payment-loader" style="display: none;" src="/assets/images/loader.gif">
+                <button class="rounded-button payment-button" onclick="window.open('/api/mollie/{{data.offer.offer_id}}/{{token}}','WebSonic', 'width=900,height=850,scrollbars=no,toolbar=no,location=no'); return false">Ik wil betalen</button>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

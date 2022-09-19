@@ -1,0 +1,26 @@
+{% set flag = 0 %}
+{% set permissions = [] %}
+
+{% if player_permissions %}
+    {% for permission in player_permissions %}
+    {% set permissions = permissions|merge([permission.permission]) %}
+        {% if permission.permission == set_permission  %}
+            {% set flag = 1 %}
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% set flag = 0 %}
+{% endif %}
+
+
+{% if flag == 1 or set_permission == 'homepage' %}
+    {% if set_permission == 'homepage' %}
+        {% block base %} {% endblock %}
+    {% else %}
+        {% block housekeeping %} {% endblock %}
+    {% endif %}
+{% else %}
+    {% if 'housekeeping' in permissions %}
+        {% include 'Admin/no_access.html' %}
+    {% endif %}
+{% endif %}

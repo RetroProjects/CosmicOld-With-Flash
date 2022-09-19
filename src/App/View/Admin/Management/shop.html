@@ -1,0 +1,215 @@
+{% extends "Admin/base.html" %}
+{% block page %}Shop management{% endblock %}
+{% block jsfile %}shop{% endblock %}
+{% block body %}
+<div class="row">
+   <div class="col-xl-12" id="offerManage" style="display: none">
+      <div class="kt-portlet">
+         <form method="post" action="shop/editcreate">
+            <div class="kt-portlet__head">
+               <div class="kt-portlet__head-label">
+                  <span class="kt-portlet__head-icon">
+                  <i class="flaticon2-graph"></i>
+                  </span>
+                  <h3 class="kt-portlet__head-title titleEdit">
+                     Offer Manage
+                  </h3>
+               </div>
+               <div class="kt-subheader__wrapper kt-margin-t-10">
+                  <a id="goBack" class="btn btn-clean btn-icon-sm" style="">
+                  <i class="la la-long-arrow-left"></i>Back
+                  </a>
+               </div>
+            </div>
+            <div class="kt-portlet__body">
+               <div class="form-group row">
+                  <div class="col-lg-3 hideVip">
+                     <label>Title</label>
+                     <input type="text" name="title" class="form-control">
+                  </div>
+                  <div class="col-lg-3">
+                     <label>Price</label>
+                     <input type="text" name="price" class="form-control"></span>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="form-group">
+                        <label>Image</label>
+                        <select name="image" class="form-control">
+                           <option value="belcredits-hg.png">300 credits</option>
+                           <option value="belcredits-ls.png">200 credits</option>
+                           <option value="belcredits-lg.png">100 credits</option>
+                           <option value="belcredits-lg.png">40 credits</option>
+                           <option value="belcredits-lg.png">30 credits</option>
+                           <option value="belcredits-sl.png">20 credits</option>
+                           <option value="belcredits-sm.png">20 credits</option>
+                           <option value="ES51G.png">VIP1</option>
+                           <option value="ES551.png">VIP2</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label>Description</label>
+                  <textarea name="description" id="description" style="font-size: 7px;"></textarea>
+               </div>
+               <div class="form-group row data">
+                  <div class="col-lg-12">
+                     <div class="form-group">
+                        <label>data (rcon command + value e.q)</label>
+                        <div class="accordion accordion-solid accordion-panel accordion-svg-toggle" id="accordionExample8">
+                           <div class="card">
+                              <div class="card-header" id="headingOne8">
+                                 <div class="card-title" data-toggle="collapse" data-target="#collapseOne8">
+                                    <div class="card-label">Example json</div>
+                                    <span class="svg-icon">
+                                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                             <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                             <path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" fill="#000000" fill-rule="nonzero"></path>
+                                             <path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999) "></path>
+                                          </g>
+                                       </svg>
+                                    </span>
+                                 </div>
+                              </div>
+                              <div id="collapseOne8" class="collapse" data-parent="#accordionExample8">
+                                 <div class="card-body">
+                                    <pre id="json">
+{
+  "givecredits": {
+      credits: 50000
+  },
+  "givepoints": {
+      "type": 0,
+      "points": 5000
+  },
+  "givebadge": [
+      {
+        "badge": "ADM.gif"
+      },
+      {
+        "badge": "ADM.gif"
+      }
+    ],
+  "setrank": {
+      "rank": 2
+  }
+}
+                                    </pre>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div id="jsoneditor" style="width: 100%; height: 400px;"></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="kt-portlet__foot">
+                  <div class="row align-items-center">
+                     <div class="col-lg-6 m--valign-middle">
+                        Action:
+                     </div>
+                     <div class="col-lg-6 kt-align-right">
+                        <input type="hidden" name="shopId">
+                        <input type="hidden" name="json">
+                        <button type="submit" class="btn btn-brand addCategory offerName"></button>
+                     </div>
+                  </div>
+               </div>
+         </form>
+         </div>
+      </div>
+   </div>
+   <div class="col-xl-12" id="offers">
+      <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+         <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+               <span class="kt-portlet__head-icon">
+               <i class="kt-font-brand flaticon2-user"></i>
+               </span>
+               <h3 class="kt-portlet__head-title">
+                  Shop management
+               </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+               <div class="kt-portlet__head-wrapper">
+                  <div class="col-md-4 kt-tablet-and-mobile">
+                     <div class="kt-form__group kt-form__group--inline">
+                        <div class="kt-form__label">
+                           <div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Quick actions">
+                              <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                       <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+                                       <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                       <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" id="Combined-Shape" fill="#000000"></path>
+                                    </g>
+                                 </svg>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-225px, 35px, 0px);">
+                                 <!--begin::Nav-->
+                                 <ul class="kt-nav">
+                                    <li class="kt-nav__head">
+                                       Choose action:                                   
+                                       <i class="flaticon2-information" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="Click to learn more..."></i>
+                                    </li>
+                                    <li class="kt-nav__separator"></li>
+                                    <li class="kt-nav__item">
+                                       <a href="#" class="kt-nav__link rankManagement">
+                                       <i class="kt-nav__link-icon flaticon2-drop"></i>
+                                       <span class="kt-nav__link-text addVip">Add Offer</span>
+                                       </a>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="kt-portlet__body kt-portlet__body--fit">
+            <!--begin: Datatable -->
+            <div id="kt_datatable_shop"></div>
+            <!--end: Datatable -->
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="giveOffer" tabindex="-1" role="dialog" aria-labelledby="giveOffer" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <form method="post" action="shop/give">
+            <div class="modal-header">
+               <h5 class="modal-title" id="giveOffer">Give offer</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Name:</label>
+                  <select name="username" class="form-control remoteControl"></select>
+               </div>
+               <div class="form-group">
+                  <label for="message-text" class="col-form-label">Offer:</label>
+                  <select name="type" class="form-control">
+                     {% for item in offers %}
+                     <option value="{{item.id}}">{{item.amount}} {{item.currency}} ({{item.lang}})</option>
+                     {% endfor %}
+                  </select>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Send offer</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+<link href="/assets/admin/css/jsoneditor.min.css" rel="stylesheet" type="text/css">
+<script src="/assets/admin/js/jsoneditor.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.10.3/tinymce.min.js"></script>
+{% endblock %}

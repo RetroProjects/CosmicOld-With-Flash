@@ -1,0 +1,10 @@
+<div style="float: left;">
+  <a href="/marketplace" class="values"><button type="button" class="btn btn-nav btn-lg">{{locale.nav_catalogue}}</button></a>
+  <a href="/marketplace/all/sell" class="values"><button type="button" class="btn btn-nav btn-lg">{{locale.nav_shop}}</button></a>
+  <a href="/marketplace/my/inventory" class="values"><button type="button" class="btn btn-nav btn-lg">{{locale.nav_my}}</button></a>
+</div>
+{% if searchbar is defined %}
+<div style="float: right">
+  <input type="text" name="search-furni" class="rounded-input blue-active" placeholder="Search furni" style="height: 35px;">
+</div>
+{% endif %}

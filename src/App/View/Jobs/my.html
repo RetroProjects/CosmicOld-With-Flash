@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="page-content job">
+    <div class="tabs-container">
+      <a href="/jobs" class="tab">{{locale.title}}</a>
+        <span class="tab selected">{{locale.applications}}</span>
+    </div>
+    <h2>{{locale.applications}}</h2>
+  
+    {% for job in jobs %}
+    <article class="default-section job-offer flex-container flex-vertical-center" style="padding: 15px">
+        <div class="offer-description">
+            <h4>{{job.job}}</h4>
+            {{job.small_description}}
+        </div>
+        <div class="offer-button">
+            {% if job.status == "open" %}
+            {% else %}
+                <img src="/assets/images/web/pages/jobs/closed.png" width="46">
+            {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}

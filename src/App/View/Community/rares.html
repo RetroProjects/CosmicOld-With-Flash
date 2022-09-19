@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{locale.title}}</h1>
+        {% if title %}	{{title}} {% else %} {{locale.last_rares}} {% endif %}
+    </div>
+</header>
+        <div class="page-content">
+            <div class="left-side">
+			{%if rares %}
+			<div class="rares-container">
+        {% for item in rares %}
+		<div class="rare-container">
+<div class="rare-content">
+<div class="rare-name">{{item.name}}</div>
+<div class="rare-image">
+                        <div class="rare-bg" style="background:  url({{item.image}}) no-repeat center;"></div>
+                    </div>
+<div class="rare-info">
+    {% if item.cost_credits > 0 %}
+    <div class="rare-cost"><div class="icons" style="float: left;background: url(/assets/images/hotel/purses/credits-icon.png) no-repeat center center;height: 15px;width: 15px;">
+    </div><div style="float: left;margin-left: 7%;color: #E2AE1D;font-weight: 600;">
+                        {{item.cost_credits}}
+                    </div></div>
+					{% endif %}
+					
+{% if item.cost_points > 0 %}
+<div class="rare-cost"><div class="icons" style="float: left;background: url(/assets/images/hotel/purses/{{item.points_type}}-icon.png) no-repeat center center;height: 21px;width: 21px;"></div>
+<div style="float: left;margin-left: 7%;color: #69b7d4;font-weight: 600;">
+                        {{item.cost_points}}
+                    </div>
+						</div>
+						{% endif %}
+						
+							</div>
+							<div class="rare-units">{{item.units}} {{locale.units}}</div>
+					<div class="rare-subinfo"><b>{{locale.last_editor}} </b>{{item.username}}</div>
+					<div class="rare-subinfo"><b>{{locale.last_edited}} </b>{{item.last_edited}}</div>
+</div>
+</div>
+        {% endfor %}
+    </div>
+	{% else %}
+	<article class="default-section">
+            <div class="aside-title-content">{{locale.none_rare_found_title}}</div>
+            <div class="aside-content">
+                <p><b>{{locale.none_rare_found_desc}}</b><br/>{{locale.none_rare_found_last}} <a href="/community/rares">{{locale.last_clickhere}}</a>.</p>
+            </div>
+        </article>
+	{% endif %}
+            </div>
+<div class="right-side">
+
+        <aside class="default-section">
+            <div class="aside-title-content">{{locale.rares_pages}}</div>
+            <div class="aside-content">
+			<div class="input-group search-rare">
+                <input type="text" class="form-control search-input" id="search-rare-value" placeholder="{{locale.search}}" required>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary search-rarebtn"  style="width:64px">{{locale.search}}</button>
+                </span>
+            </div>
+			<br>
+                <div class="rares-pages-container">
+				{% if pages %}
+                    {% for item in pages %}
+                    <a href="/community/rares/{{item.id}}-{{item.name}}" class="rares-pages-container pageinfo">
+                        <div class="rares-pages-thumbnail" style="background-image: url({{item.thumbnail}});"></div>
+                        <div class="rares-pages-details">
+                            <div class="rares-pages-title">{{item.name}} </div>
+                            <div class="rares-pages-desc">{{item.description}}</div>
+                        </div>
+                    </a>
+                    {% endfor %}
+					{% else %}
+                    <div class="rares-pages-container pageinfo">
+                        <div class="rares-pages-details">
+                            <div class="rares-pages-title">{{locale.pages_notfound}} </div>
+                        </div>
+                    </div>
+					{% endif %}
+                </div>
+            </div>
+        </aside>
+    </div>
+        </div>
+{% endblock %}

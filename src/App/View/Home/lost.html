@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="page-content">
+    <div class="left-side">
+    <article class="default-section">
+        <div class="aside-title-content">{{locale.page_not_found}}</div>
+        <div class="aside-content">
+            <img style="float:right" src="/assets/images/web/pages/lost/error.gif" />
+            {{locale.page_content_1}}<br><br>{{locale.page_content_2}}
+        </div>
+    </article>
+    </div>
+
+    <div class="right-side">
+        <article class="default-section">
+            <div class="aside-title-content">{{locale.sidebar_title}}</div>
+            <div class="aside-content">
+                <p><b>{{locale.sidebar_stats}}</b><br/>{{locale.sidebar_stats_label_1}} <a href="/games/ranking">{{locale.sidebar_stats_label_2}}</a>.</p>
+
+                <p><b>{{locale.sidebar_rooms}}</b><br/>{{locale.sidebar_rooms_label_1}} <a href="/hotel" target="_blank">{{locale.sidebar_rooms_label_2}}</a>.</p>
+
+                <p><b>{{locale.sidebar_else}}</b><br/>{{locale.sidebar_else_label}}</p>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}

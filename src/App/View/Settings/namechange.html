@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% set nav = "namechange" %}
+{% block body %}
+<div class="page-content">
+    <article class="default-section">
+
+        {% include "Settings/panel.html" %}
+
+        <h3 class="aside-title">{{locale.title}}</h3>
+        <div class="form-help">
+            {{locale.help_1}} <strong>{{price}} {{currency}}</strong> {{locale.help_2}}
+        </div>
+
+        <form action="settings/namechange/validate" method="post">
+            <div class="row">
+                <div class="column-2">
+                    <input type="text" name="username" class="rounded-input purple-active newpin" id="username" placeholder="{{locale.fill_username}}" maxlength="15" autocomplete="off" required>
+                </div>
+                <div class="column-1">
+                    <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                    <p class="submit-button"><button type="submit" id="changeButton" class="rounded-button purple submit-password" disabled>{{locale.request}}</button></p>
+                </div>
+            </div>
+        </form>
+    </article>
+</div>
+{% endblock %}

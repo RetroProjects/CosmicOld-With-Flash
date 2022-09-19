@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Geblokkeerd - {{site.shortname}} Hotel</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900" rel="stylesheet">
+
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #1a75a0;
+        }
+        #notfound {
+            position: relative;
+            height: 100vh;
+        }
+        .notfound {
+            max-width: 410px;
+            width: 100%;
+            text-align: center;
+        }
+        .notfound .notfound-404 {
+            position: relative;
+            z-index: -1;
+        }
+        #notfound .notfound {
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .notfound h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #fdfdfd;
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 0;
+        }
+        .notfound p {
+            font-family: 'Montserrat', sans-serif;
+            color: #efefef;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+        .notfound a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            text-decoration: none;
+            text-transform: uppercase;
+            background: #0046d5;
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 40px;
+            color: #fff;
+            font-weight: 700;
+            -webkit-box-shadow: 0 4px 15px -5px #0046d5;
+            box-shadow: 0 4px 15px -5px #0046d5;
+        }
+        @media only screen and (max-width: 767px) {
+            .notfound .notfound-404 {
+                height: 142px;
+            }
+            .notfound .notfound-404 h1 {
+                font-size: 112px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="notfound">
+        <div class="notfound">
+            <div class="notfound-404"></div>
+            {% if type == "vpn" %}
+            <img src="/assets/images/web/login-logo.png" style="float:left">
+                <h2>#{{asn}} - VPN Geblokkeerd</h2>
+                <p>Helaas is een VPN niet toegestaan binnen {{site.shortname}}. Schakel je VPN uit om {{site.shortname}} te kunnen bezoeken.</p>
+                <p>Als je denkt dat dit een fout is maak dan een Help Ticket met de bovenstaande code (<strong>#{{asn}}</strong>).</p>
+                {% elseif type == "language" %}
+                <h2>#{{country}} - Land Geblokkeerd</h2>
+                <p>Het land (<strong>{{country}}</strong>) dat u bezoekt is geblokkeerd!</p>
+                <p>Als je denkt dat dit een fout is maak dan een Help Ticket met de bovenstaande code (<strong>#{{country}}</strong>).</p>
+                {% elseif type == "puffin" %}
+                    <h2>Puffin Desktop</h2>
+                    <p>Je kunt Puffin alleen gebruiken op de telefoon.<br>Gebruik een andere browser om {{site.shortname}} te bezoeken.</p>
+                    <p>Als je denkt dat dit een fout is maak dan een Help Ticket.</p>
+                {% endif %}
+                <a href="{{site.path}}/help/requests/new">Maak Help Ticket</a>
+        </div>
+    </div>
+</body>
+</html>

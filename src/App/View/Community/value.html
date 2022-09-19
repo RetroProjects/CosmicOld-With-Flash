@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{locale.title_header}}</h1>
+        {{locale.decs_header}}
+    </div>
+</header>
+<div class="page-content">
+    <div class="left-side">
+        {% include "Shop/Marketplace/nav.html" %}
+        <article class="default-section ranking-container" style="margin-top: 50px;">
+            <table class="default-table ranking-content">
+                <thead>
+                <tr>
+                    <th colspan="2">{{locale.furni_name}}</th>
+                    <th>{{locale.furni_type}}</th>
+                    <th>{{locale.furni_value}}</th>
+                    <th>{{locale.furni_costs}}</th>
+                    <th>{{locale.furni_amount}}</th>
+                    <th>{{locale.furni_rate}}</th>
+                </tr>
+                </thead>
+
+                <tbody class="marketplace">
+                {% for value in values %}
+                    {% if value.cost_points > 0 %}                   
+                        <tr>
+                            <td><img src="{{site.cpath}}/meubels/{{value.catalog_name|replace({'*': "_"})}}_icon.png" class="pixelated"></td>
+                            <td><a href="#" style="border-bottom: 1px dotted;" class="payment-button" data-state="catalogue" data-id="{{value.id}}" data-costs="{{ (cat.discount/100) * value.cost_points }}" data-type="{{item_currency}}" data-image="{{value.catalog_name|replace({'*': "_"})}}">{{value.catalog_name|replace({'*': "_"})}}</a></td>
+                            <td>{{value.currency.currency}}</td>
+                            <td>{{value.cost_points}}</td>
+                            <td style="font-size: 14px;font-weight: bold">{{value.price}}</td>
+                            <td>{{value.amount}}</td>
+                            <td><img src="/assets/images/web/pages/value/{{value.rate}}.gif" style="margin-right: 10px;" class="pixelated"></td>
+                        </tr>
+                      {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </article>
+    </div>
+    <div class="right-side"  style="margin-top: 50px;">
+      
+        <aside class="default-section">
+            <div class="aside-title-content">{{cat.cat_name}} - {{cat.discount}}% discount</div>
+            <div class="aside-content">
+                <img src="/assets/images/web/pages/shop/discount.png" align="right">
+                At the big marketplace you can buy items that you would normally find in the catalog for a better price!<br /><br /><a href="/marketplace/my/inventory">Go to my marketplace!</a>
+            </div>
+        </aside>
+      
+        <aside class="default-section">
+            <div class="aside-title-content">{{locale.looking_for}}</div>
+            <div class="aside-content">
+                {% for category in categories %}
+                <a href="/marketplace/{{category.id}}-{{category.slug}}" class="values"><button type="button" class="btn btn-{% if cat.id == category.id %}success{% else %}primary{% endif %} btn-lg outline">{{category.cat_name}}</button></a>
+                {% endfor %}
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

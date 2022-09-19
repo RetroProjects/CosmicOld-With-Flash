@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{site.shortname}} Club</h1>
+        {{locale.desc}}
+    </div>
+</header>
+
+<div class="page-content">
+    <div class="left-side">
+        <article class="default-section">
+            <div class="aside-title-content">{{site.shortname}} {{locale.club_benefits}}</div>
+            <div class="aside-content">
+                
+                {{content|raw}}
+              
+                <h4>Badges</h4>
+                {% for badges in data.vip_badges %}
+                    <img src="{{site.cpath}}/c_images/album1584/{{badges|trim('value')}}.gif">
+                {% endfor %}
+            </div>
+        </article>
+    </div>
+
+    <div class="right-side">
+        <div class="shop-purses">
+          <div class="purse-container credits">{{player.credits}}</div>
+            {% for value in data.currencys %}
+                <div class="purse-container {{value.currency}}">
+                   {{value.amount}}
+                </div> 
+            {% endfor %}
+        </div>
+        <aside class="default-section">
+            <div class="aside-title-content">{{locale.club_buy}}</div>
+            <div class="aside-content">
+                <form action="shop/club/buy">
+                    <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+                    <center><button class="rounded-button blue">
+                      {% if data.vip_membership_days == "lifetime" %}{{locale.unlimited}}{% else %}{{data.vip_membership_days}} DAYS {% endif %} ({{data.vip_price}} {{data.vip_type}})
+                    </button></center>
+                </form>
+            </div>
+        </aside>
+
+        <aside class="default-section">
+            <div class="aside-title-content">{{locale.more_information}}</div>
+            <div class="aside-content">
+                <p>{{locale.content_1}} {{locale.content_2}} <a href="/help/requests/new">{{locale.help_tool}}</a>.</p>
+            </div>
+        </aside>
+
+        {% if data.vip is not empty %}
+        <aside class="default-section">
+            <div class="aside-title-content">{{locale.random_club_users}}</div>
+            <div class="aside-content">
+                <div class="members-container">
+                    {% for player in data.vip %}
+                    <div class="member-container">
+                        <a href="/profile/{{player.username}}" class="member-content flex-container flex-vertical-center">
+                            <div class="member-avatar flex-container flex-vertical-center flex-horizontal-center">
+                                <img src="{{site.fpath}}figure={{player.look}}&head_direction=2&gesture=sml&headonly=true" alt="{{player.username}}" class="pixelated">
+                            </div>
+                            <div class="member-details">
+                                <div class="details-username">{{player.username}}</div>
+                                <div class="details-motto">{{player.motto}}</div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

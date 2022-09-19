@@ -1,0 +1,356 @@
+{% extends "Admin/base.html" %}
+{% block page %}Permissions{% endblock %}
+{% block jsfile %}permissions{% endblock %}
+{% block body %}
+<div class="row" id="editPermissions">
+   <div class="col-xl-6 col-lg-12 order-lg-1 order-xl-1">
+      <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+         <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+               <h3 class="kt-portlet__head-title">
+                  Search role for permissions
+               </h3>
+            </div>
+         </div>
+         <div class="kt-portlet__body">
+            <div class="input-group">
+               <select name="element" class="form-control targetRole"></select>
+               <div class="input-group-append">
+                  <input type="submit" value="Go!" class="btn btn-primary roleSearch">
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-xl-6 col-lg-12 order-lg-1 order-xl-1" id="roleSearch" style="display:none">
+      <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+            <div class="kt-portlet__head">
+               <div class="kt-portlet__head-label">
+                  <h3 class="kt-portlet__head-title">
+                     Change permissions
+                  </h3>
+               </div>
+            </div>
+            <div class="kt-portlet__body">
+               <div class="input-group">
+                  <select name="element" class="form-control targetPermission"></select>
+                  <div class="input-group-append">
+                     <input type="submit" value="Go!" class="btn btn-primary permissionSearch">
+                  </div>
+               </div>
+            </div>
+      </div>
+   </div>
+</div>
+
+<div class="row">
+   <div class="col-xl-12" id="permissionsTable" style="display:none">
+      <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+         <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+               <span class="kt-portlet__head-icon">
+               <i class="kt-font-brand flaticon2-user"></i>
+               </span>
+               <h3 class="kt-portlet__head-title">
+                  Permissions
+               </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+               <div class="kt-portlet__head-wrapper">
+                  <div class="col-md-8 kt-margin-b-20-tablet-and-mobile">
+                     <div class="kt-input-icon kt-input-icon--left">
+                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                        <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                        <span><i class="la la-search"></i></span>
+                        </span>
+                     </div>
+                  </div>
+                  &nbsp;
+                  <div class="col-md-4 kt-tablet-and-mobile">
+                     <div class="kt-form__group kt-form__group--inline">
+                        <div class="kt-form__label">
+                           <button class="btn btn-secondary" type="button" id="kt_datatable_permission_reload">Reload</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="kt-portlet__body kt-portlet__body--fit">
+            <!--begin: Datatable -->
+            <div id="kt_datatable_permissions"></div>
+            <!--end: Datatable -->
+         </div>
+      </div>
+   </div>
+</div>
+<div id="rankManagement">
+  <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-label">
+            <span class="kt-portlet__head-icon">
+      <i class="kt-font-brand flaticon2-user"></i>
+      </span>
+            <h3 class="kt-portlet__head-title">
+         Teams
+      </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="col-md-4 kt-tablet-and-mobile">
+                    <div class="kt-form__group kt-form__group--inline">
+                        <div class="kt-form__label">
+                            <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#editCategoryModal">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body kt-portlet__body--fit">
+        <!--begin: Datatable -->
+        <div id="kt_datatable_teams"></div>
+        <!--end: Datatable -->
+    </div>
+</div>
+  </div>
+<div class="row" id="rankWizard">
+   <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
+      <div class="kt-wizard-v4" id="kt_wizard_v4" data-ktwizard-state="first">
+         <!--begin: Form Wizard Nav -->
+         <div class="kt-wizard-v4__nav">
+            <div class="kt-wizard-v4__nav-items">
+               <a class="kt-wizard-v4__nav-item" href="#" data-ktwizard-type="step" data-ktwizard-state="current">
+                  <div class="kt-wizard-v4__nav-body">
+                     <div class="kt-wizard-v4__nav-number">
+                        1
+                     </div>
+                     <div class="kt-wizard-v4__nav-label">
+                        <div class="kt-wizard-v4__nav-label-title">
+                           Choose name
+                        </div>
+                        <div class="kt-wizard-v4__nav-label-desc">
+                           Create rank
+                        </div>
+                     </div>
+                  </div>
+               </a>
+               <a class="kt-wizard-v4__nav-item" href="#" data-ktwizard-type="step" data-ktwizard-state="pending">
+                  <div class="kt-wizard-v4__nav-body">
+                     <div class="kt-wizard-v4__nav-number">
+                        2
+                     </div>
+                     <div class="kt-wizard-v4__nav-label">
+                        <div class="kt-wizard-v4__nav-label-title">
+                           Server permissions
+                        </div>
+                        <div class="kt-wizard-v4__nav-label-desc">
+                           Inside client
+                        </div>
+                     </div>
+                  </div>
+               </a>
+               <a class="kt-wizard-v4__nav-item" href="#" data-ktwizard-type="step" data-ktwizard-state="pending">
+                  <div class="kt-wizard-v4__nav-body">
+                     <div class="kt-wizard-v4__nav-number">
+                        3
+                     </div>
+                     <div class="kt-wizard-v4__nav-label">
+                        <div class="kt-wizard-v4__nav-label-title">
+                           Web permissions
+                        </div>
+                        <div class="kt-wizard-v4__nav-label-desc">
+                           For access modules
+                        </div>
+                     </div>
+                  </div>
+               </a>
+               <a class="kt-wizard-v4__nav-item" href="#" data-ktwizard-type="step" data-ktwizard-state="pending">
+                  <div class="kt-wizard-v4__nav-body">
+                     <div class="kt-wizard-v4__nav-number">
+                        4
+                     </div>
+                     <div class="kt-wizard-v4__nav-label">
+                        <div class="kt-wizard-v4__nav-label-title">
+                           Finish
+                        </div>
+                        <div class="kt-wizard-v4__nav-label-desc">
+                           Overview
+                        </div>
+                     </div>
+                  </div>
+               </a>
+            </div>
+         </div>
+         <!--end: Form Wizard Nav -->
+         <div class="kt-portlet">
+            <div class="kt-portlet__body kt-portlet__body--fit">
+               <div class="kt-grid">
+                  <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v4__wrapper">
+                     <!--begin: Form Wizard Form-->
+                     <form class="kt-form" id="kt_form" novalidate="novalidate">
+                        <!--begin: Form Wizard Step 1-->
+                        <div class="kt-wizard-v4__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+                           <div class="kt-heading kt-heading--md">Create rank</div>
+                           <div class="kt-form__section kt-form__section--first">
+                              <div class="kt-wizard-v4__form">
+                                 <div class="form-group">
+                                    <input type="text" class="form-control" name="rank_name" placeholder="Rank name" aria-describedby="fname-error">
+                                    <span class="form-text text-muted">The name you enter is also shown at the staff page on the website</span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!--end: Form Wizard Step 1-->
+                        <!--begin: Form Wizard Step 2-->
+                        <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
+                           <div class="kt-heading kt-heading--md">Setup your server permissions</div>
+                           <div class="kt-form__section kt-form__section--first">
+                              {% set columns = 2 %}
+                              {% for permission in permission_columns[8:] %}
+                                  {% if loop.first or loop.index0 is divisible by(columns) %}
+                                      <div class="form-group row">
+                                  {% endif %}
+                                   <label class="col-3 col-form-label">                                    
+                                   {{permission.Field}}
+                                   </label>
+                                   <div class="col-3">
+                                      <span class="kt-switch kt-switch--icon">
+                                      <label>
+                                      <input type="checkbox" name="{{permission.Field}}">
+                                      <span></span>
+                                      </label>
+                                      </span>
+                                   </div>
+                                  {% if loop.last or loop.index is divisible by(columns) %}
+                                  </div>
+                                  {% endif %}
+                              {% endfor %}
+                           </div>
+                        </div>
+                        <!--end: Form Wizard Step 2-->
+                        <!--begin: Form Wizard Step 3-->
+                        <div class="kt-wizard-v4__content permissionTable" data-ktwizard-type="step-content">
+                           <div class="row" style="margin-bottom: 10px">
+                              <div class="col-lg-10">
+                                 <button class="btn btn-secondary" type="button" id="kt_datatable_reload">Reload</button>
+                                 <button class="btn btn-secondary" type="button" id="kt_datatable_check_all">Select all rows</button>
+                                 <button class="btn btn-secondary" type="button" id="kt_datatable_uncheck_all">Unselect all rows</button>
+                              </div>
+                           </div>
+                           <div class="kt-portlet__body kt-portlet__body--fit">
+                              <div id="kt_datatable_namechange"></div>
+                           </div>
+                        </div>
+                        <!--end: Form Wizard Step 3-->
+                        <!--begin: Form Wizard Step 4-->
+                        <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
+                           <div class="kt-form__section kt-form__section--first">
+                              <div class="kt-section__content kt-section__content--solid" style="margin-bottom: 20px">
+                                 <p>
+                                 <h3 id="rankName"></h3>
+                                 Below you will find a list with the specified requirements. When you have read this, press "create" to create the rank.
+                                 When the rank is created you will redirected to the a page where you can modify server commands.
+                              </div>
+                              <div class="accordion accordion-solid accordion-toggle-plus" id="serverPerm">
+                                 <div class="card">
+                                    <div class="card-header" id="headingOne6">
+                                       <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="false" aria-controls="collapseOne6">
+                                          <i class="flaticon-interface-7"></i> Server permissions
+                                       </div>
+                                    </div>
+                                    <div id="collapseOne6" class="collapse" aria-labelledby="headingOne6" data-parent="#serverPerm" style="">
+                                       <div class="card-body">
+                                          <table class="table table-sm">
+                                             <thead class="thead-inverse">
+                                                <tr>
+                                                   <th>#</th>
+                                                   <th>Permission</th>
+                                                   <th>Type</th>
+                                                </tr>
+                                             </thead>
+                                             <tbody id="serverPermissions"></tbody>
+                                          </table>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="accordion accordion-solid accordion-toggle-plus" id="webPerm">
+                                 <div class="card">
+                                    <div class="card-header" id="headingOne5">
+                                       <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne1">
+                                          <i class="flaticon-interface-7"></i> Web permissions
+                                       </div>
+                                    </div>
+                                    <div id="collapseOne1" class="collapse" aria-labelledby="headingOne5" data-parent="#webPerm" style="">
+                                       <div class="card-body">
+                                          <table class="table table-sm">
+                                             <thead class="thead-inverse">
+                                                <tr>
+                                                   <th>#</th>
+                                                   <th>Permission</th>
+                                                </tr>
+                                             </thead>
+                                             <tbody id="websitePermissions"></tbody>
+                                          </table>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!--end: Form Wizard Step 4-->
+                        <!--begin: Form Actions -->					
+                        <div class="kt-form__actions">
+                           <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
+                              Previous
+                           </div>
+                           <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
+                              Create
+                           </div>
+                           <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
+                              Next Step
+                           </div>
+                        </div>
+                        <!--end: Form Actions -->
+                     </form>
+                     <!--end: Form Wizard Form-->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+  <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCategoryModalLabel">Add Tea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="categoryName" class="form-control-label">Team name:</label>
+                        <input type="text" class="form-control" id="rank_name">
+                    </div>
+                   <div class="form-group">
+                        <label for="categoryName" class="form-control-label">Description:</label>
+                        <input type="text" class="form-control" id="rank_description">
+                    </div>>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary saveTeam">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="/assets/admin/css/wizard-4.css" rel="stylesheet" type="text/css" />
+{% endblock %}

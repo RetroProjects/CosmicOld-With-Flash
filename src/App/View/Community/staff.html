@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <header class="page-header flex-container flex-vertical-center">
+            <div class="page-header-content">
+                <h1>{{site.shortname}} {% if action == "team" %}Teams{% else %}Staff{% endif %}</h1>
+                {{locale.desc}}
+            </div>
+        </header>
+
+        <div class="page-content">
+            <div class="left-side">
+                {% for employee in data %}
+                {% if employee.users is not empty %}
+                <article class="default-section">
+                      <div class="aside-title-content">{{employee.rank_name}}</div>
+                      {% if action == "team" %}<div class="aside-desc-content">{{employee.rank_description}}</div>{% endif %}
+                      <div class="aside-content">
+
+                      <div class="members-container">
+                          {% for user in employee.users %}
+                          <div class="member-container">
+                              <a href="/profile/{{user.username}}" class="member-content flex-container flex-vertical-center">
+                                  <div class="member-avatar flex-container flex-vertical-center flex-horizontal-center">
+                                      <img src="{{site.fpath}}?figure={{user.look}}&gesture=sml&headonly=1" alt="{{user.username}}" class="pixelated">
+                                  </div>
+                                  <div class="member-details">
+                                      <div class="details-username">{{user.username}}</div>
+                                      <div class="details-function">{{user.settings.role}}</div>
+                                      <div class="details-motto">{{user.motto}}</div>
+                                  </div>
+                                  <div class="member-status flex-container flex-vertical-center flex-horizontal-center">
+                                      <span class="status-icon {% if user.settings.hide_online == 0 %}{% if user.online %}online{% endif %}{% endif %}"></span>
+                                  </div>
+                              </a>
+                          </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+                </article>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="right-side">
+                <article class="default-section">
+                    <h3 class="aside-title-content">{{locale.title}}</h3>
+                    <div class="aside-content">
+                        <div class="sides-container">
+                            <img src="/assets/images/web/pages/staff/staff.gif" style="float:right">
+                            {{locale.content_1}}<br>{{locale.content_2}}
+                        </div>
+                  </div>
+                </article>
+            </div>
+        </div>
+{% endblock %}

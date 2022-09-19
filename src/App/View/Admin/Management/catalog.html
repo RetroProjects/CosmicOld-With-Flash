@@ -1,0 +1,445 @@
+{% extends "Admin/base.html" %}
+{% block page %}Badge management{% endblock %}
+{% block jsfile %}catalog{% endblock %}
+{% block body %}
+<div class="row">
+   <div class="col-md-12" id="eItemPage" style="display: none;">
+      <div class="kt-portlet">
+         <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+               <h3 class="kt-portlet__head-title">
+                  Edit item page
+               </h3>
+            </div>
+            <div class="kt-subheader__wrapper kt-margin-t-10">
+               <a id="#" class="btn btn-clean btn-icon-sm goBackWizard" style="">
+               <i class="la la-long-arrow-left"></i>Back
+               </a>
+            </div>
+         </div>
+         <form class="kt-form" id="itemForm" method="post" action="catalog/addItem">
+            <div class="kt-portlet__body">
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Sprite ID</label>
+                  <div class="col-9">
+                     <input type="text" name="sprite_id" class="form-control">
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Item Name</label>
+                  <div class="col-9">
+                     <input type="text" name="item_name" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Public Name</label>
+                  <div class="col-9">
+                     <textarea name="public_name" class="form-control" id="text-input"></textarea>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Width</label>
+                  <div class="col-lg-2">
+                     <input type="number" class="form-control" name="width">
+                  </div>
+                  <label for="example-text-input" class="col-1 col-form-label">Length</label>
+                  <div class="col-lg-2">
+                     <input type="number" class="form-control" name="length">
+                  </div>
+                  <label for="example-text-input" class="col-1 col-form-label">Height</label>
+                  <div class="col-lg-2">
+                     <input type="number" class="form-control" name="stack_height">
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Page</label>
+                  <div class="col-9">
+                     <select name="page_id" id="selectPage" class="form-control" required></select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow stack</label>
+                  <div class="col-9">
+                     <select name="allow_stack" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow sit</label>
+                  <div class="col-9">
+                     <select name="allow_sit" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow lay</label>
+                  <div class="col-9">
+                     <select name="allow_lay" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow walk</label>
+                  <div class="col-9">
+                     <select name="allow_walk" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow Gift</label>
+                  <div class="col-9">
+                     <select name="allow_gift" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow trade</label>
+                  <div class="col-9">
+                     <select name="allow_trade" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow recylce</label>
+                  <div class="col-9">
+                     <select name="allow_recycle" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow Marketplace Sell</label>
+                  <div class="col-9">
+                     <select name="allow_marketplace_sell" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Allow Incentory Stack</label>
+                  <div class="col-9">
+                     <select name="allow_inventory_stack" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Item Type</label>
+                  <div class="col-9">
+                     <select name="type" class="form-control">
+                        <option value="s">Floor</option>
+                        <option value="i">Wall</option>
+                        <option value="r">Bot</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Interaction type</label>
+                  <div class="col-9">
+                     <select name="interaction_type" id="selectPage" class="form-control" required>
+                        <option value="adjustable_height">adjustable_height</option>
+                        <option value="adjustable_height_seat">adjustable_height_seat</option>
+                        <option value="alert">alert</option>
+                        <option value="background">background</option>
+                        <option value="badge">badge</option>
+                        <option value="badge_display">badge_display</option>
+                        <option value="ball">ball</option>
+                        <option value="ball_old">ball_old</option>
+                        <option value="beach_shower">beach_shower</option>
+                        <option value="bed">bed</option>
+                        <option value="clothing">clothing</option>
+                        <option value="crackable">crackable</option>
+                        <option value="default">default</option>
+                        <option value="dice">dice</option>
+                        <option value="dimmer">dimmer</option>
+                        <option value="gate">gate</option>
+                        <option value="gift">gift</option>
+                        <option value="group_gate">group_gate</option>
+                        <option value="group_item">group_item</option>
+                        <option value="habbowheel">habbowheel</option>
+                        <option value="halo_tile">halo_tile</option>
+                        <option value="lovelock">lovelock</option>
+                        <option value="mannequin">mannequin</option>
+                        <option value="onewaygate">onewaygate</option>
+                        <option value="photo">photo</option>
+                        <option value="postit">postit</option>
+                        <option value="privatechat">privatechat</option>
+                        <option value="privatechat_bed">privatechat_bed</option>
+                        <option value="rentals">rentals</option>
+                        <option value="roller">roller</option>
+                        <option value="roombg">roombg</option>
+                        <option value="soundmachine">soundmachine</option>
+                        <option value="teleport">teleport</option>
+                        <option value="trophy">trophy</option>
+                        <option value="vendingmachine">vendingmachine</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="example-text-input" class="col-3 col-form-label">Interaction Count</label>
+                  <div class="col-9">
+                     <input type="text" name="interaction_modes_count" class="form-control">
+                  </div>
+               </div>
+               <div class="kt-portlet">
+                  <div class="kt-portlet__body">
+                     <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label">Catalog name</label>
+                        <div class="col-9">
+                           <input type="text" name="catalog_name" class="form-control">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label"></label>
+                        <div class="col-lg-2">
+                           <label>Credits</label>
+                           <input type="number" class="form-control" name="cost_credits">
+                        </div>
+                        <div class="col-lg-2">
+                           <label class="">Cost Points</label>
+                           <input type="number" class="form-control" name="cost_points">
+                        </div>
+                        <div class="col-lg-2">
+                           <label class="">Point type</label>
+                           <input type="number" class="form-control" name="points_type">
+                        </div>
+                        <div class="col-lg-2">
+                           <label class="">Amount</label>
+                           <input type="number" class="form-control" name="amount">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label"></label>
+                        <div class="col-lg-2">
+                           <label>Limited sells</label>
+                           <input type="number" class="form-control" name="limited_sells">
+                        </div>
+                        <div class="col-lg-2">
+                           <label class="">Limit stacks</label>
+                           <input type="number" class="form-control" name="limited_stack">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="kt-portlet__foot kt-portlet__foot--solid">
+               <div class="kt-form__actions">
+                  <div class="row">
+                     <div class="col-3">
+                        <input type="hidden" name="object">
+                        <input type="hidden" name="furniture_id">
+                        <button type="submit" class="btn btn-primary ajaxLoad" name="additem">Edit item</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+   <div class="col-md-12" id="treeView">
+      <div class="kt-portlet">
+         <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+               <h3 class="kt-portlet__head-title">
+                  TreeView
+               </h3>
+            </div>
+             <div class="kt-subheader__wrapper kt-margin-t-10">
+               <a id="#" class="btn btn-clean btn-icon-sm executeRcon" style="">
+               <i class="la la-long-arrow-right"></i>Execute Catalog Rcon
+               </a>
+            </div>
+         </div>
+         <div id="kt_tree_6" class="tree-demo"></div>
+      </div>
+   </div>
+   <div class="col-xl-12" id="catalogList" style="display: none">
+      <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+         <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+               <span class="kt-portlet__head-icon">
+               <i class="kt-font-brand flaticon-bag"></i>
+               </span>
+               <h3 class="kt-portlet__head-title">
+                  Catalog pages
+               </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+               <div class="kt-portlet__head-wrapper">
+                  <div class="col-md-8 kt-margin-b-20-tablet-and-mobile">
+                     <div class="kt-input-icon kt-input-icon--left">
+                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                        <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                        <span><i class="la la-search"></i></span>
+                        </span>
+                     </div>
+                  </div>
+                  &nbsp;
+                  <div class="col-md-3 kt-tablet-and-mobile">
+                     <div class="kt-form__group kt-form__group--inline">
+                        <div class="kt-form__label">
+                           <button class="btn btn-secondary" type="button" id="kt_datatable_catalog_reload">Reload</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="kt-portlet__body kt-portlet__body--fit">
+            <div id="kt_datatable_catalog_itemlist"></div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="parentFirst" tabindex="-1" role="dialog" aria-labelledby="parentFirst" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="parentLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i aria-hidden="true" class="ki ki-close"></i>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form id="formParent" action="catalog/request">
+               <div class="card-body">
+                  <div class="form-group row">
+                     <div class="col-lg-4">
+                        <label>Page Name:</label>
+                        <input type="text" name="caption" id="caption" class="form-control" required>
+                     </div>
+                     <div class="col-lg-4">
+                        <label>Page Teaser</label>
+                        <input type="text" name="page_teaser" id="page_teaser"  class="form-control">
+                     </div>
+                     <div class="col-lg-4">
+                        <label>Page Header</label>
+                        <input type="text" name="page_headline" id="page_headline"  class="form-control">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-lg-4" id="groupParent">
+                        <label>Parent Page</label>
+                       <div class="col-12">
+                             <select name="parent_id" style="margin-left: -px; width: 102%;" id="parentCatalog" class="form-control" required></select>
+                        </div>
+
+                     </div>
+                     <div class="col-lg-4">
+                        <label>Page Layout</label>
+                        <div class="input-group">
+                           <select name="page_layout" id="pagelayout" class="form-control" required>
+                              <option value="default_3x3">default_3x3</option>
+<<<<<<< HEAD
+				<option value="vip_buy">vip_buy</option>
+	                      <option value="default_3x3_color_grouping">default_3x3_color_grouping</option>
+=======
+                              <option value="club_buy">club_buy</option>
+                              <option value="club_gift">club_gift</option>
+                              <option value="frontpage">frontpage</option>
+                              <option value="spaces">spaces</option>
+                              <option value="recycler">recycler</option>
+                              <option value="recycler_info">recycler_info</option>
+                              <option value="recycler_prizes">recycler_prizes</option>
+                              <option value="trophies">trophies</option>
+                              <option value="plasto">plasto</option>
+                              <option value="marketplace">marketplace</option>
+                              <option value="marketplace_own_items">marketplace_own_items</option>
+                              <option value="spaces_new">spaces_new</option>
+                              <option value="soundmachine">soundmachine</option>
+                              <option value="guilds">guilds</option>
+                              <option value="guild_furni">guild_furni</option>
+                              <option value="info_duckets">info_duckets</option>
+                              <option value="info_rentables">info_rentables</option>
+                              <option value="info_pets">info_pets</option>
+                              <option value="roomads">roomads</option>
+                              <option value="single_bundle">single_bundle</option>
+                              <option value="sold_ltd_items">sold_ltd_items</option>
+                              <option value="badge_display">badge_display</option>
+>>>>>>> f3faa73f3530acc68b167f51c7211cb9f78271e0
+                              <option value="bots">bots</option>
+                              <option value="pets">pets</option>
+                              <option value="productpage1">productpage1</option>
+                              <option value="pets2">pets2</option>
+                              <option value="pets3">pets3</option>
+                              <option value="productpage1">productpage1</option>
+                              <option value="room_bundle">room_bundle</option>
+                              <option value="recent_purchases">recent_purchases</option>
+                              <option value="default_3x3_color_grouping">default_3x3_color_grouping</option>
+                              <option value="guild_forum">guild_forum</option>
+                              <option value="vip_buy">vip_buy</option>
+                              <option value="info_loyalty">info_loyalty</option>
+                              <option value="loyalty_vip_buy">loyalty_vip_buy</option>
+                              <option value="collectibles">collectibles</option>
+                              <option value="petcustomization">petcustomization</option>
+                              <option value="frontpage_featured">frontpage_featured</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-lg-4">
+                        <label>Club only</label>
+                        <div class="input-group">
+                              <select name="club_only" id="club_only" class="form-control" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                             </select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-lg-4">
+                        <label>Min rank</label>
+                        <div class="input-group">
+                            <input type="number" name="min_rank" class="form-control">
+                        </div>
+                     </div>
+                     <div class="col-lg-4">
+                        <label>Enabled</label>
+                        <div class="input-group">
+                              <select name="enabled" id="enabled" class="form-control" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                             </select>
+                        </div>
+                     </div>
+                     <div class="col-lg-4">
+                        <label>Visible</label>
+                        <div class="input-group">
+                              <select name="visible" id="visible" class="form-control" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                             </select>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <input type="hidden" name="catid">
+               <input type="hidden" name="create">
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary createFolder">Create Folder</button>
+            <button type="button" class="btn btn-info viewItems">View Items</button>
+            <button type="button" class="btn btn-danger deleteParent" data-toggle="modal" data-target="#confirm-delete">Delete</button>
+            <button type="button" class="btn btn-success saveChanges">Save changes</button>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

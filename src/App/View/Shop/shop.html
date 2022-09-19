@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header class="page-header flex-container flex-vertical-center">
+    <div class="page-header-content">
+        <h1>{{site.shortname}} {{locale.store}}</h1>
+        {{locale.desc}}
+    </div>
+</header>
+{% if player %}
+<div class="page-content">
+    <div class="left-side">
+        <article class="default-section">
+            <div class="aside-title-content">{{locale.title}}</div>
+            <div class="filter-container">
+            </div>
+            <div class="aside-content" style="text-align: center">
+                <div class="payment-accept" style="padding-left: 10px;display:none">
+                    Je aankoopmunten zijn toegevoegd aan je account. Mocht er iets zijn misgegaan neem dan contact op via onze helptool. <br /><br />
+                    <img src="/assets/images/web/pages/shop/credits-success.png">
+                </div>
+                <div class="payment-decline" style="padding-left: 10px;display:none">
+                    De aankoop is geannuleerd. Lukt het niet om aankoop te doen? Neem dan contact op via onze helptool. <br /><br />
+                    <img src="/assets/images/web/pages/shop/credits-error.png">
+                </div>
+                <img class="payment-loader" style="display: none;" src="/assets/images/loader.gif">
+            </div>
+          
+            <div class="offers-container">
+                {% for offer in data.shop %}
+                <div class="offer-container" id="offer-{{offer.id}}">
+                    <a href="#" data-id="{{offer.id}}" data-amount="{{offer.amount}}" data-description="{{offer.description}}" data-type="{{currency}}" class="offer-content pixelated">
+                        <div class="offer-label">{{offer.title|capitalize }}</div>
+                        <div class="offer-amount">{{offer.price}} {{currency}}</div>
+                        <div class="credits-sprite credits-sprite-shop_icon_1" style="background-image: url(/assets/images/web/pages/shop/{{offer.image}}?)"></div>
+                    </a>
+                </div>
+                {% endfor %}
+                <input type="hidden" name="csrftoken" value="{{csrf_token}}">
+            </div>
+
+            <div class="payments-container">
+                <span class="audiotel"></span>
+                <span class="sms-plus"></span>
+            </div>
+        </article>
+    </div>
+    <div class="right-side">
+        <div class="shop-purses">
+          <div class="purse-container credits">{{player.credits}}</div>
+            {% for value in data.currencys %}
+                <div class="purse-container {{value.currency}}">
+                   {{value.amount}}
+                </div> 
+            {% endfor %}
+        </div>
+        <aside class="default-section">
+            <div class="aside-title-content">{{locale.more_information}}</div>
+            <div class="aside-content">
+                <p>{{locale.content_1}} {{locale.content_2}} <a href="/help/requests/new">{{locale.help_tool}}</a>.</p>
+            </div>
+        </aside>
+    </div>
+</div>
+{% else %}
+<div class="page-content">
+    <div class="left-side">
+        <article class="default-section">
+            <h3 class="aside-title">{{locale.not_logged}}</h3>
+            {{locale.have_to_login}} <a href="#" class="login-dialog-button">{{locale.click_here}}</a> {{locale.to_login}}
+        </article>
+    </div>
+    <div class="right-side">
+        <aside class="default-section">
+            <h3 class="aside-title">{{locale.more_information}}</h3>
+            <p>{{locale.content_1}} {{locale.content_2}} <a href="/help/requests/new">{{locale.help_tool}}</a>.</p>
+        </aside>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
